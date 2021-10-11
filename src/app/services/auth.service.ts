@@ -36,7 +36,6 @@ export class AuthService {
       this.userService.getUserByEmail(user.email).subscribe((response) => {
         this.user = response.data;
       });
-      this.setUserName(user.email);
       return this.httpClient.post<SingleResponseModel<TokenModel>>(
         environment.apiUrl + "auth/login",
         user
@@ -104,6 +103,7 @@ export class AuthService {
     if (this.isAuthenticated()) {
       this.setCurrentUserId();
       this.setRoles();
+      this.setUserName(this.user.email);
     }
   }
 
