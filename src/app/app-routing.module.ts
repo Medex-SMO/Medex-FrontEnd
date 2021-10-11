@@ -1,4 +1,3 @@
-import { SponsorsModule } from './components/sponsors/sponsors.module';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { BaseComponent } from './views/layout/base/base.component';

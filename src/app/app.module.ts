@@ -1,28 +1,25 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { BrowserModule } from "@angular/platform-browser";
+import { NgModule } from "@angular/core";
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 
-import { AppRoutingModule } from './app-routing.module';
+import { AppRoutingModule } from "./app-routing.module";
 
-import { LayoutModule } from './views/layout/layout.module';
-import { AuthGuard } from './core/guard/auth.guard';
+import { LayoutModule } from "./views/layout/layout.module";
+import { AuthGuard } from "./core/guard/auth.guard";
 
-import { AppComponent } from './app.component';
-import { ErrorPageComponent } from './views/pages/error-page/error-page.component';
+import { AppComponent } from "./app.component";
+import { ErrorPageComponent } from "./views/pages/error-page/error-page.component";
 
-import { HIGHLIGHT_OPTIONS } from 'ngx-highlightjs';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { ReactiveFormsModule } from '@angular/forms';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { ToastrModule } from 'ngx-toastr';
-import { DataTablesModule } from 'angular-datatables';
-import { AuthInterceptor } from './interceptors/auth.interceptor';
+import { HIGHLIGHT_OPTIONS } from "ngx-highlightjs";
+import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
+import { ReactiveFormsModule } from "@angular/forms";
+import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
+import { ToastrModule } from "ngx-toastr";
+import { DataTablesModule } from "angular-datatables";
+import { AuthInterceptor } from "./interceptors/auth.interceptor";
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    ErrorPageComponent,
-  ],
+  declarations: [AppComponent, ErrorPageComponent],
   imports: [
     BrowserModule,
     HttpClientModule,
@@ -31,32 +28,32 @@ import { AuthInterceptor } from './interceptors/auth.interceptor';
     BrowserAnimationsModule,
     LayoutModule,
     DataTablesModule,
-        ToastrModule.forRoot({
-            timeOut: 3000,
-            positionClass: 'toast-bottom-right',
-            preventDuplicates: true
-        }),
-        NgbModule
+    ToastrModule.forRoot({
+      timeOut: 3000,
+      positionClass: "toast-bottom-right",
+      preventDuplicates: true,
+    }),
+    NgbModule,
   ],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,
-      multi: true
-  },
+      multi: true,
+    },
     AuthGuard,
     {
       provide: HIGHLIGHT_OPTIONS, // https://www.npmjs.com/package/ngx-highlightjs
       useValue: {
-        coreLibraryLoader: () => import('highlight.js/lib/core'),
+        coreLibraryLoader: () => import("highlight.js/lib/core"),
         languages: {
-          xml: () => import('highlight.js/lib/languages/xml'),
-          typescript: () => import('highlight.js/lib/languages/typescript'),
-          scss: () => import('highlight.js/lib/languages/scss'),
-        }
-      }
-    }
+          xml: () => import("highlight.js/lib/languages/xml"),
+          typescript: () => import("highlight.js/lib/languages/typescript"),
+          scss: () => import("highlight.js/lib/languages/scss"),
+        },
+      },
+    },
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

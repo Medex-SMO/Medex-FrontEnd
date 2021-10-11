@@ -63,7 +63,7 @@ export class AuthService {
     this.user = null;
     this.currentRoles = null;
     this.currentUserId = null;
-    this.router.navigate(["/login"]);
+    this.router.navigate(["/auth/login"]);
   }
 
   isAuthenticated(): boolean {
