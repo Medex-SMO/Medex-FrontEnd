@@ -56,7 +56,7 @@ export class SponsorListComponent implements OnInit, OnDestroy {
                     exportOptions: {
                         columns: [0]
                     }
-                },
+                }/* ,
                 {
                     extend: 'copy',
                     className: 'table-button button btn btn-success',
@@ -75,7 +75,7 @@ export class SponsorListComponent implements OnInit, OnDestroy {
                     action: function (e, dt, node, config) {
                         alert('Button activated');
                     }
-                }
+                } */
             ]
         };
     }

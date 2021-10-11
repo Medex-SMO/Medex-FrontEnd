@@ -5,18 +5,18 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { AppRoutingModule } from "./app-routing.module";
 
 import { LayoutModule } from "./views/layout/layout.module";
-import { AuthGuard } from "./core/guard/auth.guard";
 
 import { AppComponent } from "./app.component";
 import { ErrorPageComponent } from "./views/pages/error-page/error-page.component";
 
 import { HIGHLIGHT_OPTIONS } from "ngx-highlightjs";
 import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
-import { ReactiveFormsModule } from "@angular/forms";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 import { ToastrModule } from "ngx-toastr";
 import { DataTablesModule } from "angular-datatables";
 import { AuthInterceptor } from "./interceptors/auth.interceptor";
+import { AuthGuard } from "./guards/auth.guard";
 
 @NgModule({
   declarations: [AppComponent, ErrorPageComponent],
@@ -24,6 +24,7 @@ import { AuthInterceptor } from "./interceptors/auth.interceptor";
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
+    FormsModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
     LayoutModule,

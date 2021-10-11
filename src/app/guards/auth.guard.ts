@@ -27,7 +27,13 @@ export class AuthGuard implements CanActivate, CanActivateChild {
     | Promise<boolean | UrlTree>
     | boolean
     | UrlTree {
-    return this.control();
+      if (this.authService.isAuthenticated()) {
+        return true;
+      } else {
+        this.router.navigate(['/auth/login'], { queryParams: { returnUrl: state.url } });
+        console.log("You must login to the system");
+        return false;
+      }
   }
 
   canActivateChild(
@@ -39,15 +45,5 @@ export class AuthGuard implements CanActivate, CanActivateChild {
     | boolean
     | UrlTree {
     return this.canActivate(next, state);
-  }
-
-  async control() {
-    if (this.authService.isAuthenticated()) {
-      return true;
-    } else {
-      this.router.navigate(["login"]);
-      console.log("You must login to the system");
-      return false;
-    }
   }
 }
