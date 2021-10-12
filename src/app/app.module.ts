@@ -25,13 +25,9 @@ import { DeletePatientComponent } from './components/popup/delete/delete-patient
 import { DeleteSiteComponent } from './components/popup/delete/delete-site/delete-site.component';
 import { DeleteUserComponent } from './components/popup/delete/delete-user/delete-user.component';
 import { DeleteVisitComponent } from './components/popup/delete/delete-visit/delete-visit.component';
-import { AddPatientComponent } from './components/popup/add/add-patient/add-patient.component';
-import { AddSiteComponent } from './components/popup/add/add-site/add-site.component';
-import { AddSponsorComponent } from './components/popup/add/add-sponsor/add-sponsor.component';
-import { AddStudyComponent } from './components/popup/add/add-study/add-study.component';
 
 @NgModule({
-  declarations: [AppComponent, ErrorPageComponent, DeleteSponsorComponent, DeleteStudyComponent, DeleteAssignmentComponent, DeleteEquipmentComponent, DeletePatientComponent, DeleteSiteComponent, DeleteUserComponent, DeleteVisitComponent, AddPatientComponent, AddSiteComponent, AddSponsorComponent, AddStudyComponent],
+  declarations: [AppComponent, ErrorPageComponent, DeleteSponsorComponent, DeleteStudyComponent, DeleteAssignmentComponent, DeleteEquipmentComponent, DeletePatientComponent, DeleteSiteComponent, DeleteUserComponent, DeleteVisitComponent],
   imports: [
     BrowserModule,
     HttpClientModule,

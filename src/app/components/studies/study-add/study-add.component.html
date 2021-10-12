@@ -1,0 +1,68 @@
+<div class="container-fluid">
+  <div class="card">
+    <form [formGroup]="studyAddForm">
+      <div class="card-body">
+        <div class="mb-3">
+          <label for="sponsorId">Sponsors</label>
+          <div class="row">
+            <div class="form-group col-11">
+              <select class="custom-select" formControlName="sponsorId">
+                <option selected disabled="">Select one</option>
+                <option *ngFor="let sponsor of sponsors" [ngValue]="sponsor.id">
+                  {{ sponsor.name }}
+                </option>
+              </select>
+            </div>
+            <app-add-sponsor class="form-group col-1"></app-add-sponsor>
+          </div>
+        </div>
+        <div class="mb-3">
+          <label for="protocolCode">Protocol Code</label>
+          <div class="form-group">
+            <input
+              type="text"
+              id="protocolCode"
+              formControlName="protocolCode"
+              class="form-control"
+              placeholder="Enter protocol code"
+            />
+          </div>
+        </div>
+        <div class="mb-3">
+          <label for="studyName">Study Name</label>
+          <div class="form-group">
+            <input
+              type="text"
+              id="studyName"
+              formControlName="studyName"
+              class="form-control"
+              placeholder="Enter study name"
+            />
+          </div>
+        </div>
+        <div class="mb-3">
+          <label for="indication">Indication</label>
+          <div class="form-group">
+            <input
+              type="text"
+              id="indication"
+              formControlName="indication"
+              class="form-control"
+              placeholder="Enter indication"
+            />
+          </div>
+        </div>
+      </div>
+      <div class="card-footer">
+        <button
+          type="submit"
+          class="btn btn-success"
+          (click) = "add()"
+          [disabled]="!studyAddForm.valid  || clicked"
+        >
+          Submit
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

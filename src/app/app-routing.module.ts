@@ -25,6 +25,10 @@ const routes: Routes = [
         loadChildren: () => import('./components/sponsors/sponsors.module').then(m => m.SponsorsModule)
       },
       {
+        path: 'studies',
+        loadChildren: () => import('./components/studies/studies.module').then(m => m.StudiesModule)
+      },
+      {
         path: 'ui-components',
         loadChildren: () => import('./views/pages/ui-components/ui-components.module').then(m => m.UiComponentsModule)
       },

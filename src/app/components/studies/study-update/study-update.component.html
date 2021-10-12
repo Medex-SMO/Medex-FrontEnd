@@ -1,0 +1,66 @@
+<div class="container-fluid">
+  <div class="card">
+    <form [formGroup]="studyUpdateForm" (ngSubmit)="update()">
+      <div class="card-body">
+        <div class="mb-3">
+          <label for="sponsorId">Sponsors</label>
+          <div class="form-group">
+            <select
+              class="custom-select my-1 mr-sm-2"
+              formControlName="sponsorId"
+            >
+              <option *ngFor="let sponsor of sponsors" [ngValue]="sponsor.id">
+                {{ sponsor.name }}
+              </option>
+            </select>
+          </div>
+        </div>
+        <div class="mb-3">
+          <label for="protocolCode">Protocol Code</label>
+          <div class="form-group">
+            <input
+              type="text"
+              id="protocolCode"
+              formControlName="protocolCode"
+              class="form-control"
+              placeholder="Enter protocol code"
+            />
+          </div>
+        </div>
+        <div class="mb-3">
+          <label for="studyName">Study Name</label>
+          <div class="form-group">
+            <input
+              type="text"
+              id="studyName"
+              formControlName="studyName"
+              class="form-control"
+              placeholder="Enter study name"
+            />
+          </div>
+        </div>
+        <div class="mb-3">
+          <label for="indication">Indication</label>
+          <div class="form-group">
+            <input
+              type="text"
+              id="indication"
+              formControlName="indication"
+              class="form-control"
+              placeholder="Enter indication"
+            />
+          </div>
+        </div>
+      </div>
+      <div class="card-footer">
+        <button
+          type="submit"
+          class="btn btn-success"
+          [disabled]="clicked"
+        >
+          <b>Update Study</b>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

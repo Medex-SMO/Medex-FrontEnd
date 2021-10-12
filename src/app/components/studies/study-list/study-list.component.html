@@ -1,1 +1,57 @@
-<p>study-list works!</p>
+<div class="container-fluid">
+  <div class="card">
+    <div class="card-header">
+      <button
+        routerLink="add"
+        type="button"
+        class="btn btn-primary float-right"
+      >
+        Add Study
+      </button>
+    </div>
+    <div class="card-body">
+      <h6 class="card-title">Studies</h6>
+      <div class="table-responsive">
+        <table
+          class="table table-hover"
+          datatable
+          [dtOptions]="dtOptions"
+          [dtTrigger]="dtTrigger"
+        >
+          <thead>
+            <tr>
+              <th>Sponsor</th>
+              <th>Protocol Code</th>
+              <th>Study Name</th>
+              <th>Indication</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let study of studies">
+              <td>{{ study.sponsorName }}</td>
+              <td>{{ study.protocolCode }}</td>
+              <td>{{ study.studyName }}</td>
+              <td>{{ study.indication }}</td>
+              <td>
+                <div class="text-center">
+                  <div class="btn-group" role="group">
+                    <button class="btn btn-danger" (click)="delete(study)">
+                      <i data-feather="trash-2" appFeatherIcon></i>
+                    </button>
+                    <button
+                      routerLink="update/{{ study.id }}"
+                      class="btn btn-success"
+                    >
+                      <i data-feather="edit" appFeatherIcon></i>
+                    </button>
+                  </div>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
