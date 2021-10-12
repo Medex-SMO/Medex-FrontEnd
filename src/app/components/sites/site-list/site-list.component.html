@@ -1,0 +1,69 @@
+<div class="container-fluid">
+  <div class="card">
+    <div class="card-header">
+      <button
+        routerLink="add"
+        type="button"
+        class="btn btn-primary float-right"
+      >
+        Add Site
+      </button>
+    </div>
+    <div class="card-body">
+      <h6 class="card-title">Sites</h6>
+      <div class="table-responsive">
+        <table
+          class="table table-hover"
+          datatable
+          [dtOptions]="dtOptions"
+          [dtTrigger]="dtTrigger"
+        >
+          <thead>
+            <tr>
+              <th>Sponsor</th>
+              <th>Study</th>
+              <th>City</th>
+              <th>Site Number</th>
+              <th>Site Name</th>
+              <th>Department</th>
+              <th>Investigator</th>
+              <th>Cra Name</th>
+              <th>Cra Mail</th>
+              <th>Cra Mobile</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let site of sites">
+              <td>{{ site.studySponsorName }}</td>
+              <td>{{ site.protocolCode }}</td>
+              <td>{{ site.cityName }}</td>
+              <td>{{ site.siteNumber }}</td>
+              <td>{{ site.siteName }}</td>
+              <td>{{ site.department }}</td>
+              <td>{{ site.investigator }}</td>
+              <td>{{ site.craName }}</td>
+              <td>{{ site.craMail }}</td>
+              <td>{{ site.craMobile }}</td>
+              <td>
+                <div class="text-center">
+                  <div class="btn-group" role="group">
+                    <button class="btn btn-danger" (click)="delete(site)">
+                      <i data-feather="trash-2" appFeatherIcon></i>
+                    </button>
+                    <button
+                      routerLink="update/{{ site.id }}"
+                      class="btn btn-success"
+                    >
+                      <i data-feather="edit" appFeatherIcon></i>
+                    </button>
+                  </div>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

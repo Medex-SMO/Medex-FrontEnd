@@ -1,0 +1,149 @@
+<div class="container-fluid">
+  <div class="card">
+    <form [formGroup]="siteAddForm">
+      <div class="card-body">
+        <div class="mb-3">
+          <label for="sponsorId">Sponsors</label>
+          <div class="row">
+            <div class="form-group col-11">
+              <select
+                class="custom-select"
+                formControlName="sponsorId"
+                (change)="selectedSponsor()"
+              >
+                <option selected disabled="">Select one</option>
+                <option *ngFor="let sponsor of sponsors" [ngValue]="sponsor.id">
+                  {{ sponsor.name }}
+                </option>
+              </select>
+            </div>
+            <app-add-sponsor class="form-group col-1"></app-add-sponsor>
+          </div>
+        </div>
+        <div class="mb-3" *ngIf="sponsorId">
+          <label for="studyId">Protocols</label>
+          <div class="row">
+            <div class="form-group col-11">
+              <select
+                class="custom-select"
+                formControlName="studyId"
+                (change)="selectedStudy()"
+              >
+                <option selected disabled="">Select one</option>
+                <option *ngFor="let study of studies" [ngValue]="study.id">
+                  {{ study.protocolCode }}
+                </option>
+              </select>
+            </div>
+            <app-add-study class="form-group col-1"></app-add-study>
+          </div>
+        </div>
+        <div class="mb-3" *ngIf="studyId">
+          <label for="cityId">Cities</label>
+          <div class="form-group">
+            <select class="custom-select" formControlName="cityId">
+              <option selected disabled="">Select one</option>
+              <option *ngFor="let city of cities" [ngValue]="city.id">
+                {{ city.id }} - {{ city.name }}
+              </option>
+            </select>
+          </div>
+        </div>
+        <div class="mb-3">
+          <label for="siteNumber">Site Number</label>
+          <div class="form-group">
+            <input
+              type="text"
+              id="siteNumber"
+              formControlName="siteNumber"
+              class="form-control"
+              placeholder="Enter site number"
+            />
+          </div>
+        </div>
+        <div class="mb-3">
+          <label for="siteName">Site Name</label>
+          <div class="form-group">
+            <input
+              type="text"
+              id="siteName"
+              formControlName="siteName"
+              class="form-control"
+              placeholder="Enter site name"
+            />
+          </div>
+        </div>
+        <div class="mb-3">
+          <label for="department">Department</label>
+          <div class="form-group">
+            <input
+              type="text"
+              id="department"
+              formControlName="department"
+              class="form-control"
+              placeholder="Enter department"
+            />
+          </div>
+        </div>
+        <div class="mb-3">
+          <label for="investigator">Investigator</label>
+          <div class="form-group">
+            <input
+              type="text"
+              id="investigator"
+              formControlName="investigator"
+              class="form-control"
+              placeholder="Enter investigator"
+            />
+          </div>
+        </div>
+        <div class="mb-3">
+          <label for="craName">Cra Name</label>
+          <div class="form-group">
+            <input
+              type="text"
+              id="craName"
+              formControlName="craName"
+              class="form-control"
+              placeholder="Enter cra name"
+            />
+          </div>
+        </div>
+        <div class="mb-3">
+          <label for="craMail">Cra Mail</label>
+          <div class="form-group">
+            <input
+              type="text"
+              id="craMail"
+              formControlName="craMail"
+              class="form-control"
+              placeholder="Enter cra mail"
+            />
+          </div>
+        </div>
+        <div class="mb-3">
+          <label for="craMobile">Cra Mobile</label>
+          <div class="form-group">
+            <input
+              type="text"
+              id="craMobile"
+              formControlName="craMobile"
+              class="form-control"
+              placeholder="Enter cra mobile"
+            />
+          </div>
+        </div>
+      </div>
+      <div class="card-footer">
+        <button
+          type="submit"
+          class="btn btn-success"
+          (click) = "add()"
+          [disabled]="!siteAddForm.valid || clicked"
+        >
+          Submit
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

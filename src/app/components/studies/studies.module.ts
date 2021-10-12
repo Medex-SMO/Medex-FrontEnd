@@ -7,7 +7,7 @@ import { DataTablesModule } from "angular-datatables";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { StudyAddComponent } from "./study-add/study-add.component";
 import { StudyUpdateComponent } from "./study-update/study-update.component";
-import { AddSponsorComponent } from "../popup/add/add-sponsor/add-sponsor.component";
+import { PopupModule } from "../popup/popup.module";
 
 const routes: Routes = [
   {
@@ -25,7 +25,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  declarations: [StudyListComponent, StudyAddComponent, StudyUpdateComponent, AddSponsorComponent],
+  declarations: [StudyListComponent, StudyAddComponent, StudyUpdateComponent],
   imports: [
     CommonModule,
     RouterModule.forChild(routes),
@@ -33,6 +33,7 @@ const routes: Routes = [
     DataTablesModule,
     FormsModule,
     ReactiveFormsModule,
+    PopupModule
   ],
 })
 export class StudiesModule {}

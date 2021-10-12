@@ -70,11 +70,10 @@ export class SponsorUpdateComponent implements OnInit {
                 "Validation Error"
               );
             }
-          } 
+          }
         }
       );
-    }
-    else {
+    } else {
       this.toastrService.warning("Form is not valid", "Warning");
     }
   }

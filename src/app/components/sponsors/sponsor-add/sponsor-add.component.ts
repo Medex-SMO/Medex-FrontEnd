@@ -12,7 +12,7 @@ import { SponsorService } from "src/app/services/sponsor.service";
 export class SponsorAddComponent implements OnInit {
   sponsorAddForm: FormGroup;
 
-  clicked = false
+  clicked = false;
 
   constructor(
     private formBuilder: FormBuilder,

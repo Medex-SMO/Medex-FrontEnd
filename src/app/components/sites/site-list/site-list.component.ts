@@ -1,27 +1,28 @@
-import { Component, OnDestroy, OnInit, ViewChild } from "@angular/core";
+import { Component, OnInit, ViewChild } from "@angular/core";
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { DataTableDirective } from "angular-datatables";
 import { ToastrService } from "ngx-toastr";
 import { Subject } from "rxjs";
-import { Sponsor } from "src/app/models/sponsor";
-import { SponsorService } from "src/app/services/sponsor.service";
-import { DeleteSponsorComponent } from "../../popup/delete/delete-sponsor/delete-sponsor.component";
+import { Site } from "src/app/models/site";
+import { SiteModel } from "src/app/models/siteModel";
+import { SiteService } from "src/app/services/site.service";
+import { DeleteSiteComponent } from "../../popup/delete/delete-site/delete-site.component";
 
 @Component({
-  selector: "app-sponsor-list",
-  templateUrl: "./sponsor-list.component.html",
-  styleUrls: ["./sponsor-list.component.scss"],
+  selector: "app-site-list",
+  templateUrl: "./site-list.component.html",
+  styleUrls: ["./site-list.component.scss"],
 })
-export class SponsorListComponent implements OnInit, OnDestroy {
+export class SiteListComponent implements OnInit {
   @ViewChild(DataTableDirective, { static: false })
   dtElement: DataTableDirective;
 
   dtOptions: any = {};
   dtTrigger: Subject<any> = new Subject<any>();
 
-  sponsors: Sponsor[];
+  sites: SiteModel[];
   constructor(
-    private sponsorService: SponsorService,
+    private siteService: SiteService,
     private toastrService: ToastrService,
     private modalService: NgbModal
   ) {}
@@ -30,7 +31,7 @@ export class SponsorListComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.getSponsors();
+    this.getSitesDetail();
     this.dtOptions = {
       dom: "Bfrtip",
       initComplete: function (settings, json) {
@@ -48,53 +49,53 @@ export class SponsorListComponent implements OnInit, OnDestroy {
           message: "MedexMessage",
           className: "table-button button btn btn-success",
           exportOptions: {
-            columns: [0],
+            columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
           },
         },
         {
           extend: "print",
           className: "table-button button btn btn-success",
           exportOptions: {
-            columns: [0],
+            columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
           },
-        } /* ,
-                {
-                    extend: 'copy',
-                    className: 'table-button button btn btn-success',
-                    exportOptions: {
-                        columns: [0]
-                    }
-                },
-                {
-                    extend: 'colvis',
-                    className: 'table-button button btn btn-success'
-                },
-                {
-                    text: 'Some button',
-                    className: 'table-button button btn btn-success',
-                    key: '1',
-                    action: function (e, dt, node, config) {
-                        alert('Button activated');
-                    }
-                } */,
+        }/* ,
+        {
+          extend: "copy",
+          className: "table-button button btn btn-success",
+          exportOptions: {
+            columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
+          },
+        },
+        {
+          extend: "colvis",
+          className: "table-button button btn btn-success",
+        },
+        {
+          text: "Some button",
+          className: "table-button button btn btn-success",
+          key: "1",
+          action: function (e, dt, node, config) {
+            alert("Button activated");
+          },
+        }, */
       ],
     };
   }
 
-  getSponsors() {
-    this.sponsorService.get().subscribe((response) => {
-      this.sponsors = response.data;
+  getSitesDetail() {
+    this.siteService.getSitesDetails().subscribe((response) => {
+      this.sites = response.data;
       this.dtTrigger.next();
     });
   }
 
-  delete(sponsor: Sponsor) {
-    const ref = this.modalService.open(DeleteSponsorComponent);
-    ref.componentInstance.sponsor = sponsor;
+  delete(site: Site) {
+    const ref = this.modalService.open(DeleteSiteComponent);
+    ref.componentInstance.site = site;
 
     ref.result.then(
       (yes) => {
-        this.sponsorService.delete(sponsor).subscribe(
+        this.siteService.delete(site).subscribe(
           (response) => {
             this.toastrService.success(response.message, "Success");
             this.rerender();
@@ -116,7 +117,7 @@ export class SponsorListComponent implements OnInit, OnDestroy {
   rerender(): void {
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
       dtInstance.destroy();
-      this.getSponsors();
+      this.getSitesDetail();
     });
   }
 }

@@ -1,0 +1,124 @@
+<div class="container-fluid">
+  <div class="card">
+    <form [formGroup]="siteUpdateForm" (ngSubmit)="update()">
+      <div class="card-body">
+        <div class="mb-3">
+          <label for="studyId">Studies</label>
+          <div class="form-group">
+            <select
+              class="custom-select my-1 mr-sm-2"
+              formControlName="studyId"
+            >
+              <option *ngFor="let study of studies" [ngValue]="study.id">
+                {{ study.protocolCode }}
+              </option>
+            </select>
+          </div>
+        </div>
+        <div class="mb-3">
+          <label for="cityId">Cities</label>
+          <div class="form-group">
+            <select class="custom-select" formControlName="cityId">
+              <option *ngFor="let city of cities" [ngValue]="city.id">
+                {{ city.id }} - {{ city.name }}
+              </option>
+            </select>
+          </div>
+        </div>
+        <div class="mb-3">
+          <label for="siteNumber">Site Number</label>
+          <div class="form-group">
+            <input
+              type="text"
+              id="siteNumber"
+              formControlName="siteNumber"
+              class="form-control"
+              placeholder="Enter site number"
+            />
+          </div>
+        </div>
+        <div class="mb-3">
+          <label for="siteName">Site Name</label>
+          <div class="form-group">
+            <input
+              type="text"
+              id="siteName"
+              formControlName="siteName"
+              class="form-control"
+              placeholder="Enter site name"
+            />
+          </div>
+        </div>
+        <div class="mb-3">
+          <label for="department">Department</label>
+          <div class="form-group">
+            <input
+              type="text"
+              id="department"
+              formControlName="department"
+              class="form-control"
+              placeholder="Enter department"
+            />
+          </div>
+        </div>
+        <div class="mb-3">
+          <label for="investigator">Investigator</label>
+          <div class="form-group">
+            <input
+              type="text"
+              id="investigator"
+              formControlName="investigator"
+              class="form-control"
+              placeholder="Enter investigator"
+            />
+          </div>
+        </div>
+        <div class="mb-3">
+          <label for="craName">Cra Name</label>
+          <div class="form-group">
+            <input
+              type="text"
+              id="craName"
+              formControlName="craName"
+              class="form-control"
+              placeholder="Enter cra name"
+            />
+          </div>
+        </div>
+        <div class="mb-3">
+          <label for="craMail">Cra Mail</label>
+          <div class="form-group">
+            <input
+              type="text"
+              id="craMail"
+              formControlName="craMail"
+              class="form-control"
+              placeholder="Enter cra mail"
+            />
+          </div>
+        </div>
+        <div class="mb-3">
+          <label for="craMobile">Cra Mobile</label>
+          <div class="form-group">
+            <input
+              type="text"
+              id="craMobile"
+              formControlName="craMobile"
+              class="form-control"
+              placeholder="Enter cra mobile"
+            />
+          </div>
+        </div>
+      </div>
+      <div class="card-footer">
+        <button
+          type="submit"
+          class="btn btn-success"
+          [disabled]="clicked"
+        >
+          <b>Update Site</b>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

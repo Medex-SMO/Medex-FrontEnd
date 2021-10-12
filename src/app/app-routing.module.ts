@@ -29,6 +29,10 @@ const routes: Routes = [
         loadChildren: () => import('./components/studies/studies.module').then(m => m.StudiesModule)
       },
       {
+        path: 'sites',
+        loadChildren: () => import('./components/sites/sites.module').then(m => m.SitesModule)
+      },
+      {
         path: 'ui-components',
         loadChildren: () => import('./views/pages/ui-components/ui-components.module').then(m => m.UiComponentsModule)
       },

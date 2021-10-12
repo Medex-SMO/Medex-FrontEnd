@@ -1,34 +1,32 @@
+import { AddStudyComponent } from './../popup/add/add-study/add-study.component';
 import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { RouterModule, Routes } from "@angular/router";
-import { SponsorListComponent } from "./sponsor-list/sponsor-list.component";
 import { DataTablesModule } from "angular-datatables";
 import { FeahterIconModule } from "../../core/feather-icon/feather-icon.module";
-import { SponsorAddComponent } from "./sponsor-add/sponsor-add.component";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
-import { SponsorUpdateComponent } from "./sponsor-update/sponsor-update.component";
+import { SiteListComponent } from "./site-list/site-list.component";
+import { SiteAddComponent } from "./site-add/site-add.component";
+import { SiteUpdateComponent } from "./site-update/site-update.component";
+import { PopupModule } from '../popup/popup.module';
 
 const routes: Routes = [
   {
     path: "",
-    component: SponsorListComponent,
+    component: SiteListComponent,
   },
   {
     path: "add",
-    component: SponsorAddComponent,
+    component: SiteAddComponent,
   },
   {
-    path: "update/:sponsorId",
-    component: SponsorUpdateComponent,
+    path: "update/:siteId",
+    component: SiteUpdateComponent,
   },
 ];
 
 @NgModule({
-  declarations: [
-    SponsorListComponent,
-    SponsorAddComponent,
-    SponsorUpdateComponent,
-  ],
+  declarations: [SiteListComponent, SiteAddComponent, SiteUpdateComponent],
   imports: [
     CommonModule,
     RouterModule.forChild(routes),
@@ -36,6 +34,7 @@ const routes: Routes = [
     DataTablesModule,
     FormsModule,
     ReactiveFormsModule,
+    PopupModule
   ],
 })
-export class SponsorsModule {}
+export class SitesModule {}
