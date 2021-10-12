@@ -1,0 +1,35 @@
+<div class="container-fluid">
+  <div class="card">
+    <form [formGroup]="patientUpdateForm" (ngSubmit)="update()">
+      <div class="card-body">
+        <div class="mb-3">
+          <label for="siteId">Sites</label>
+          <div class="form-group">
+            <select class="custom-select my-1 mr-sm-2" formControlName="siteId">
+              <option *ngFor="let site of sites" [ngValue]="site.id">
+                {{ site.siteName }} / {{ site.siteNumber }}
+              </option>
+            </select>
+          </div>
+        </div>
+        <div class="mb-3">
+          <label for="subjectNo">Subject No</label>
+          <div class="form-group">
+            <input
+              type="text"
+              id="subjectNo"
+              formControlName="subjectNo"
+              class="form-control"
+              placeholder="Enter subject no"
+            />
+          </div>
+        </div>
+      </div>
+      <div class="card-footer">
+        <button type="submit" class="btn btn-success" [disabled]="clicked">
+          <b>Update Patient</b>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

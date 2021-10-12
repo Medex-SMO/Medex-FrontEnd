@@ -33,6 +33,10 @@ const routes: Routes = [
         loadChildren: () => import('./components/sites/sites.module').then(m => m.SitesModule)
       },
       {
+        path: 'patients',
+        loadChildren: () => import('./components/patients/patients.module').then(m => m.PatientsModule)
+      },
+      {
         path: 'ui-components',
         loadChildren: () => import('./views/pages/ui-components/ui-components.module').then(m => m.UiComponentsModule)
       },

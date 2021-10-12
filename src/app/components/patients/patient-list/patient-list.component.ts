@@ -1,28 +1,28 @@
-import { Component, OnDestroy, OnInit, ViewChild } from "@angular/core";
+import { Component, OnInit, ViewChild } from "@angular/core";
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { DataTableDirective } from "angular-datatables";
 import { ToastrService } from "ngx-toastr";
 import { Subject } from "rxjs";
-import { Study } from "src/app/models/study";
-import { StudyModel } from "src/app/models/studyModel";
-import { StudyService } from "src/app/services/study.service";
-import { DeleteStudyComponent } from "../../popup/delete/delete-study/delete-study.component";
+import { Patient } from "src/app/models/patient";
+import { PatientModel } from "src/app/models/patientModel";
+import { PatientService } from "src/app/services/patient.service";
+import { DeletePatientComponent } from "../../popup/delete/delete-patient/delete-patient.component";
 
 @Component({
-  selector: "app-study-list",
-  templateUrl: "./study-list.component.html",
-  styleUrls: ["./study-list.component.scss"],
+  selector: "app-patient-list",
+  templateUrl: "./patient-list.component.html",
+  styleUrls: ["./patient-list.component.scss"],
 })
-export class StudyListComponent implements OnInit, OnDestroy {
+export class PatientListComponent implements OnInit {
   @ViewChild(DataTableDirective, { static: false })
   dtElement: DataTableDirective;
 
   dtOptions: any = {};
   dtTrigger: Subject<any> = new Subject<any>();
 
-  studies: StudyModel[];
+  patients: PatientModel[];
   constructor(
-    private studyService: StudyService,
+    private patientService: PatientService,
     private toastrService: ToastrService,
     private modalService: NgbModal
   ) {}
@@ -31,7 +31,7 @@ export class StudyListComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.getStudiesDetails();
+    this.getPatientsDetail();
     this.dtOptions = {
       dom: "Bfrtip",
       initComplete: function (settings, json) {
@@ -60,42 +60,42 @@ export class StudyListComponent implements OnInit, OnDestroy {
           },
         },
         /* {
-                    extend: 'copy',
-                    className: 'table-button button btn btn-success',
-                    exportOptions: {
-                        columns: [0, 1, 2, 3]
-                    }
-                },
-                {
-                    extend: 'colvis',
-                    className: 'table-button button btn btn-success'
-                },
-                {
-                    text: 'Some button',
-                    className: 'table-button button btn btn-success',
-                    key: '1',
-                    action: function (e, dt, node, config) {
-                        alert('Button activated');
-                    }
-                } */
+          extend: "copy",
+          className: "table-button button btn btn-success",
+          exportOptions: {
+            columns: [0, 1, 2, 3],
+          },
+        },
+        {
+          extend: "colvis",
+          className: "table-button button btn btn-success",
+        },
+        {
+          text: "Some button",
+          className: "table-button button btn btn-success",
+          key: "1",
+          action: function (e, dt, node, config) {
+            alert("Button activated");
+          },
+        }, */
       ],
     };
   }
 
-  getStudiesDetails() {
-    this.studyService.getStudiesDetails().subscribe((response) => {
-      this.studies = response.data;
+  getPatientsDetail() {
+    this.patientService.getPatientsDetails().subscribe((response) => {
+      this.patients = response.data;
       this.dtTrigger.next();
     });
   }
 
-  delete(study: Study) {
-    const ref = this.modalService.open(DeleteStudyComponent);
-    ref.componentInstance.study = study;
+  delete(patient: Patient) {
+    const ref = this.modalService.open(DeletePatientComponent);
+    ref.componentInstance.patient = patient;
 
     ref.result.then(
       (yes) => {
-        this.studyService.delete(study).subscribe(
+        this.patientService.delete(patient).subscribe(
           (response) => {
             this.toastrService.success(response.message, "Success");
             this.rerender();
@@ -117,7 +117,7 @@ export class StudyListComponent implements OnInit, OnDestroy {
   rerender(): void {
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
       dtInstance.destroy();
-      this.getStudiesDetails();
+      this.getPatientsDetail();
     });
   }
 }
