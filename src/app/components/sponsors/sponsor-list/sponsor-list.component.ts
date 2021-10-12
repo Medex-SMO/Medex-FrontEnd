@@ -5,6 +5,7 @@ import {ToastrService} from 'ngx-toastr';
 import {Subject} from 'rxjs';
 import { Sponsor } from 'src/app/models/sponsor';
 import { SponsorService } from 'src/app/services/sponsor.service';
+import { DeleteSponsorComponent } from '../../popup/delete/delete-sponsor/delete-sponsor.component';
 
 @Component({
     selector: 'app-sponsor-list',
@@ -87,7 +88,7 @@ export class SponsorListComponent implements OnInit, OnDestroy {
         });
     }
 
-    /* delete(sponsor: Sponsor) {
+    delete(sponsor: Sponsor) {
         const ref = this.modalService.open(DeleteSponsorComponent);
         ref.componentInstance.sponsor = sponsor;
 
@@ -95,6 +96,7 @@ export class SponsorListComponent implements OnInit, OnDestroy {
             (yes) => {
                 this.sponsorService.delete(sponsor).subscribe(
                     (response) => {
+                        
                         this.toastrService.success(response.message, 'Success');
                         this.rerender();
                     },
@@ -110,7 +112,7 @@ export class SponsorListComponent implements OnInit, OnDestroy {
                 this.toastrService.info('Deletion canceled', 'Canceled');
             }
         );
-    } */
+    }
 
     rerender(): void {
         this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {

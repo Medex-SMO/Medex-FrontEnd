@@ -1,0 +1,153 @@
+<button class="btn btn-primary" (click)="triggerModal(modalData)">Add</button>
+<ng-template #modalData let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Add Site</h4>
+    <button
+      type="button"
+      class="close"
+      aria-label="Add"
+      (click)="modal.dismiss('Cross click')"
+    >
+      <span aria-hidden="true">×</span>
+    </button>
+  </div>
+  <form [formGroup]="siteAddForm">
+    <div class="modal-body">
+      <div class="mb-3"></div>
+      <div class="mb-3">
+        <label for="sponsorId">Sponsors</label>
+        <div class="form-group">
+          <select
+            class="custom-select my-1 mr-sm-2"
+            formControlName="sponsorId"
+            (change)="selectedSponsor()"
+          >
+            <option selected disabled="">Select one</option>
+            <option *ngFor="let sponsor of sponsors" [ngValue]="sponsor.id">
+              {{ sponsor.name }}
+            </option>
+          </select>
+        </div>
+      </div>
+      <div class="mb-3" *ngIf="sponsorId">
+        <label for="studyId">Protocols</label>
+        <div class="form-group">
+          <select
+            class="custom-select"
+            formControlName="studyId"
+            (change)="selectedStudy()"
+          >
+            <option selected disabled="">Select one</option>
+            <option *ngFor="let study of studies" [ngValue]="study.id">
+              {{ study.protocolCode }}
+            </option>
+          </select>
+        </div>
+      </div>
+      <div class="mb-3" *ngIf="studyId">
+        <label for="cityId">City Name</label>
+        <div class="form-group">
+          <select class="custom-select" formControlName="cityId">
+            <option selected disabled="">Select one</option>
+            <option *ngFor="let city of cities" [ngValue]="city.id">
+              {{ city.id }} - {{ city.name }}
+            </option>
+          </select>
+        </div>
+      </div>
+      <div class="mb-3">
+        <label for="siteCode">Site Code</label>
+        <div class="form-group">
+          <input
+            type="text"
+            id="siteCode"
+            formControlName="siteCode"
+            class="form-control"
+            placeholder="Enter site code"
+          />
+        </div>
+      </div>
+      <div class="mb-3">
+        <label for="siteName">Site Name</label>
+        <div class="form-group">
+          <input
+            type="text"
+            id="siteName"
+            formControlName="siteName"
+            class="form-control"
+            placeholder="Enter site name"
+          />
+        </div>
+      </div>
+      <div class="mb-3">
+        <label for="department">Department</label>
+        <div class="form-group">
+          <input
+            type="text"
+            id="department"
+            formControlName="department"
+            class="form-control"
+            placeholder="Enter department"
+          />
+        </div>
+      </div>
+      <div class="mb-3">
+        <label for="investigator">Investigator</label>
+        <div class="form-group">
+          <input
+            type="text"
+            id="investigator"
+            formControlName="investigator"
+            class="form-control"
+            placeholder="Enter investigator"
+          />
+        </div>
+      </div>
+      <div class="mb-3">
+        <label for="craName">Cra Name</label>
+        <div class="form-group">
+          <input
+            type="text"
+            id="craName"
+            formControlName="craName"
+            class="form-control"
+            placeholder="Enter cra name"
+          />
+        </div>
+      </div>
+      <div class="mb-3">
+        <label for="craMail">Cra Mail</label>
+        <div class="form-group">
+          <input
+            type="text"
+            id="craMail"
+            formControlName="craMail"
+            class="form-control"
+            placeholder="Enter cra mail"
+          />
+        </div>
+      </div>
+      <div class="mb-3">
+        <label for="craMobile">Cra Mobile</label>
+        <div class="form-group">
+          <input
+            type="text"
+            id="craMobile"
+            formControlName="craMobile"
+            class="form-control"
+            placeholder="Enter cra mobile"
+          />
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button
+        type="button"
+        class="btn btn-primary"
+        (click)="modal.close('Save click')"
+      >
+        Add
+      </button>
+    </div>
+  </form>
+</ng-template>
