@@ -7,6 +7,7 @@ import { DataTablesModule } from "angular-datatables";
 import { FeahterIconModule } from "../../core/feather-icon/feather-icon.module";
 import { SponsorAddComponent } from "./sponsor-add/sponsor-add.component";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { SponsorUpdateComponent } from './sponsor-update/sponsor-update.component';
 
 const routes: Routes = [
   {
@@ -17,14 +18,14 @@ const routes: Routes = [
     path: "add",
     component: SponsorAddComponent,
   },
-  /* {
-    path: 'update',
+  {
+    path: 'update/:sponsorId',
     component: SponsorUpdateComponent
-  } */
+  }
 ];
 
 @NgModule({
-  declarations: [SponsorListComponent, SponsorAddComponent],
+  declarations: [SponsorListComponent, SponsorAddComponent, SponsorUpdateComponent],
   imports: [
     CommonModule,
     RouterModule.forChild(routes),
