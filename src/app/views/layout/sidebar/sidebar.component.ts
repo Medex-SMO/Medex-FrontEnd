@@ -191,10 +191,10 @@ export class SidebarComponent implements OnInit, AfterViewInit {
   /**
    * Toggles the menu items
    */
+
   activateMenuItems() {
 
-    const links = document.getElementsByClassName('nav-link-ref');
-
+   const links = document.getElementsByClassName('nav-link-ref');
     let menuItemEl = null;
     
     for (let i = 0; i < links.length; i++) {
@@ -205,6 +205,13 @@ export class SidebarComponent implements OnInit, AfterViewInit {
             
             break;
         }
+        else if (window.location.pathname.split('/')[2] === 'add' || window.location.pathname.split('/')[2] === 'update') {
+          for (let i = 0; i < links.length; i++) {
+              if ('/'+window.location.pathname.split('/')[1] === links[i]['pathname']){
+            menuItemEl = links[i];
+          }
+          }
+      }
     }
 
     if (menuItemEl) {
