@@ -1,0 +1,66 @@
+<div class="container-fluid">
+  <div class="card">
+    <form [formGroup]="userAddForm">
+      <div class="card-body">
+        <div class="mb-3">
+          <label for="firstName">First Name</label>
+          <div class="form-group">
+            <input
+              type="text"
+              id="firstName"
+              formControlName="firstName"
+              class="form-control"
+              placeholder="Enter first name"
+            />
+          </div>
+        </div>
+        <div class="mb-3">
+          <label for="lastName">Last Name</label>
+          <div class="form-group">
+            <input
+              type="text"
+              id="lastName"
+              formControlName="lastName"
+              class="form-control"
+              placeholder="Enter last name"
+            />
+          </div>
+        </div>
+        <div class="mb-3">
+          <label for="email">Email</label>
+          <div class="form-group">
+            <input
+              type="email"
+              id="email"
+              formControlName="email"
+              class="form-control"
+              placeholder="Enter email"
+            />
+          </div>
+        </div>
+        <div class="mb-3">
+          <label for="password">Password</label>
+          <div class="form-group">
+            <input
+              type="password"
+              id="password"
+              formControlName="password"
+              class="form-control"
+              placeholder="Enter password"
+            />
+          </div>
+        </div>
+      </div>
+      <div class="card-footer">
+        <button
+          type="submit"
+          class="btn btn-success"
+          (click)="add()"
+          [disabled]="!userAddForm.valid || clicked"
+        >
+          Submit
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

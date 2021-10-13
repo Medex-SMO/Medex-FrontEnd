@@ -1,0 +1,75 @@
+<div class="container-fluid">
+  <div class="card">
+    <form [formGroup]="userUpdateForm" (ngSubmit)="update()">
+      <div class="card-body">
+        <div class="mb-3"></div>
+        <div class="mb-3">
+          <label for="firstName">First Name</label>
+          <div class="form-group">
+            <input
+              type="text"
+              id="firstName"
+              formControlName="firstName"
+              class="form-control"
+              placeholder="Enter first name"
+            />
+          </div>
+        </div>
+        <div class="mb-3">
+          <label for="lastName">Last Name</label>
+          <div class="form-group">
+            <input
+              type="text"
+              id="lastName"
+              formControlName="lastName"
+              class="form-control"
+              placeholder="Enter last name"
+            />
+          </div>
+        </div>
+        <div class="mb-3">
+          <label for="email">Email</label>
+          <div class="form-group">
+            <input
+              type="email"
+              id="email"
+              formControlName="email"
+              class="form-control"
+              placeholder="Enter email"
+            />
+          </div>
+        </div>
+        <div class="mb-3">
+          <label for="status">Status</label>
+          <div class="form-group">
+            <div class="form-check">
+              <input
+                class="form-check-input"
+                type="radio"
+                name="status"
+                formControlName="status"
+                [value]="true"
+              />
+              <label class="form-check-label">Active</label>
+            </div>
+            <div class="form-check">
+              <input
+                class="form-check-input"
+                type="radio"
+                name="status"
+                formControlName="status"
+                [value]="false"
+              />
+              <label class="form-check-label">Inactive</label>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card-footer">
+        <button type="submit" class="btn btn-success" [disabled]="clicked">
+          <b>Update User</b>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

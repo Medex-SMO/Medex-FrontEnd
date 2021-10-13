@@ -25,7 +25,6 @@ import { DeletePatientComponent } from './components/popup/delete/delete-patient
 import { DeleteSiteComponent } from './components/popup/delete/delete-site/delete-site.component';
 import { DeleteUserComponent } from './components/popup/delete/delete-user/delete-user.component';
 import { DeleteVisitComponent } from './components/popup/delete/delete-visit/delete-visit.component';
-import { PopupModule } from "./components/popup/popup.module";
 
 @NgModule({
   declarations: [AppComponent, ErrorPageComponent, DeleteSponsorComponent, DeleteStudyComponent, DeleteAssignmentComponent, DeleteEquipmentComponent, DeletePatientComponent, DeleteSiteComponent, DeleteUserComponent, DeleteVisitComponent],

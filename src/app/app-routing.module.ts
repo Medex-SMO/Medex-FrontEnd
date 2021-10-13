@@ -37,6 +37,10 @@ const routes: Routes = [
         loadChildren: () => import('./components/patients/patients.module').then(m => m.PatientsModule)
       },
       {
+        path: 'users',
+        loadChildren: () => import('./components/users/users.module').then(m => m.UsersModule)
+      },
+      {
         path: 'ui-components',
         loadChildren: () => import('./views/pages/ui-components/ui-components.module').then(m => m.UiComponentsModule)
       },
