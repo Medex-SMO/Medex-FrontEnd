@@ -1,41 +1,38 @@
 <div class="container-fluid">
   <div class="card">
-    <form [formGroup]="userUpdateForm" (ngSubmit)="update()">
+    <form [formGroup]="assignmentUpdateForm" (ngSubmit)="update()">
       <div class="card-body">
-        <div class="mb-3"></div>
         <div class="mb-3">
-          <label for="firstName">First Name</label>
+          <label for="siteId">Sites</label>
           <div class="form-group">
-            <input
-              type="text"
-              id="firstName"
-              formControlName="firstName"
-              class="form-control"
-              placeholder="Enter first name"
-            />
+            <select class="custom-select my-1 mr-sm-2" formControlName="siteId">
+              <option selected disabled="">Select one</option>
+              <option *ngFor="let site of sites" [ngValue]="site.id">
+                {{ site.siteName }} / {{ site.siteNumber }}
+              </option>
+            </select>
           </div>
         </div>
         <div class="mb-3">
-          <label for="lastName">Last Name</label>
+          <label for="userId">Email</label>
           <div class="form-group">
-            <input
-              type="text"
-              id="lastName"
-              formControlName="lastName"
-              class="form-control"
-              placeholder="Enter last name"
-            />
+            <select class="custom-select my-1 mr-sm-2" formControlName="userId">
+              <option selected disabled="">Select one</option>
+              <option *ngFor="let user of users" [ngValue]="user.id">
+                {{ user.email }}
+              </option>
+            </select>
           </div>
         </div>
         <div class="mb-3">
-          <label for="email">Email</label>
+          <label for="craName">Cra Name</label>
           <div class="form-group">
             <input
-              type="email"
-              id="email"
-              formControlName="email"
+              type="text"
+              id="craName"
+              formControlName="craName"
               class="form-control"
-              placeholder="Enter email"
+              placeholder="Enter cra name"
             />
           </div>
         </div>
@@ -67,7 +64,7 @@
       </div>
       <div class="card-footer">
         <button type="submit" class="btn btn-success" [disabled]="clicked">
-          Update User
+          Update Assignment
         </button>
       </div>
     </form>

@@ -1,0 +1,107 @@
+<div class="container-fluid">
+  <div class="card">
+    <form [formGroup]="assignmentAddForm">
+      <div class="card-body">
+        <div class="mb-3">
+          <label for="sponsorId">Sponsors</label>
+          <div class="form-group">
+            <select
+              class="custom-select my-1 mr-sm-2"
+              formControlName="sponsorId"
+              (change)="selectedSponsor()"
+            >
+              <option selected disabled="">Select one</option>
+              <option *ngFor="let sponsor of sponsors" [ngValue]="sponsor.id">
+                {{ sponsor.name }}
+              </option>
+            </select>
+          </div>
+        </div>
+        <div class="mb-3" *ngIf="sponsorId">
+          <label for="studyId">Protocols</label>
+          <div class="form-group">
+            <select
+              class="custom-select my-1 mr-sm-2"
+              formControlName="studyId"
+              (change)="selectedStudy()"
+            >
+              <option selected disabled="">Select one</option>
+              <option *ngFor="let study of studies" [ngValue]="study.id">
+                {{ study.protocolCode }}
+              </option>
+            </select>
+          </div>
+        </div>
+        <div class="mb-3" *ngIf="studyId">
+          <label for="siteId">Sites</label>
+          <div class="form-group">
+            <select class="custom-select my-1 mr-sm-2" formControlName="siteId">
+              <option selected disabled="">Select one</option>
+              <option *ngFor="let site of sites" [ngValue]="site.id">
+                {{ site.siteName }} / {{ site.siteNumber }}
+              </option>
+            </select>
+          </div>
+        </div>
+        <div class="mb-3">
+          <label for="userId">Email</label>
+          <div class="form-group">
+            <select class="custom-select my-1 mr-sm-2" formControlName="userId">
+              <option selected disabled="">Select one</option>
+              <option *ngFor="let user of users" [ngValue]="user.id">
+                {{ user.email }}
+              </option>
+            </select>
+          </div>
+        </div>
+        <div class="mb-3">
+          <label for="craName">Cra Name</label>
+          <div class="form-group">
+            <input
+              type="text"
+              id="craName"
+              formControlName="craName"
+              class="form-control"
+              placeholder="Enter cra name"
+            />
+          </div>
+        </div>
+        <div class="mb-3">
+          <label for="status">Status</label>
+          <div class="form-group">
+            <div class="form-check">
+              <input
+                class="form-check-input"
+                type="radio"
+                name="status"
+                formControlName="status"
+                [value]="true"
+              />
+              <label class="form-check-label">Active</label>
+            </div>
+            <div class="form-check">
+              <input
+                class="form-check-input"
+                type="radio"
+                name="status"
+                formControlName="status"
+                [value]="false"
+              />
+              <label class="form-check-label">Inactive</label>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card-footer">
+        <button
+          type="submit"
+          class="btn btn-success"
+          (click)="add()"
+          [disabled]="!assignmentAddForm.valid || clicked"
+        >
+          Submit
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
