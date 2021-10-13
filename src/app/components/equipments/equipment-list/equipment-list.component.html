@@ -1,0 +1,57 @@
+<div class="container-fluid">
+  <div class="card">
+    <div class="card-header">
+      <button
+        routerLink="add"
+        type="button"
+        class="btn btn-primary float-right"
+      >
+        Add Equipment
+      </button>
+    </div>
+    <div class="card-body">
+      <h6 class="card-title">Equipments</h6>
+      <div class="table-responsive">
+        <table
+          class="table table-hover"
+          datatable
+          [dtOptions]="dtOptions"
+          [dtTrigger]="dtTrigger"
+        >
+          <thead>
+            <tr>
+              <th>Email</th>
+              <th>Name</th>
+              <th>Serial No</th>
+              <th>Amount</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let equipment of equipments">
+              <td>{{ equipment.email }}</td>
+              <td>{{ equipment.name }}</td>
+              <td>{{ equipment.serialNo }}</td>
+              <td>{{ equipment.amount }}</td>
+              <td>
+                <div class="text-center">
+                  <div class="btn-group" role="group">
+                    <button class="btn btn-danger" (click)="delete(equipment)">
+                      <i data-feather="trash-2" appFeatherIcon></i>
+                    </button>
+                    <button
+                      routerLink="/equipments/update/{{ equipment.id }}"
+                      class="btn btn-success"
+                    >
+                      <i data-feather="edit" appFeatherIcon></i>
+                    </button>
+                  </div>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

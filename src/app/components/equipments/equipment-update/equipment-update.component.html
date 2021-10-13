@@ -1,0 +1,60 @@
+<div class="container-fluid">
+  <div class="card">
+    <form [formGroup]="equipmentUpdateForm" (ngSubmit)="update()">
+      <div class="card-body">
+        <div class="mb-3">
+          <label for="userId">Email</label>
+          <div class="form-group">
+            <select class="custom-select my-1 mr-sm-2" formControlName="userId">
+              <option selected disabled="">Select one</option>
+              <option *ngFor="let user of users" [ngValue]="user.id">
+                {{ user.email }}
+              </option>
+            </select>
+          </div>
+        </div>
+        <div class="mb-3">
+          <label for="name">Name</label>
+          <div class="form-group">
+            <input
+              type="text"
+              id="name"
+              formControlName="name"
+              class="form-control"
+              placeholder="Enter name"
+            />
+          </div>
+        </div>
+        <div class="mb-3">
+          <label for="serialNo">Serial No</label>
+          <div class="form-group">
+            <input
+              type="text"
+              id="serialNo"
+              formControlName="serialNo"
+              class="form-control"
+              placeholder="Enter serial no"
+            />
+          </div>
+        </div>
+        <div class="mb-3">
+          <label for="amount">Amount</label>
+          <div class="form-group">
+            <input
+              type="text"
+              id="amount"
+              formControlName="amount"
+              class="form-control"
+              placeholder="Enter amount"
+            />
+          </div>
+        </div>
+      </div>
+      <div class="card-footer">
+        <button type="submit" class="btn btn-success" [disabled]="clicked">
+          Update Equipment
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
