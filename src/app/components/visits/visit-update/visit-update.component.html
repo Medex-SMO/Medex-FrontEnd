@@ -1,0 +1,76 @@
+<div class="container-fluid">
+  <div class="card">
+    <form [formGroup]="visitUpdateForm" (ngSubmit)="update()">
+      <div class="card-body">
+        <div class="mb-3">
+          <label for="patientId">Patients</label>
+          <div class="form-group">
+            <select
+              class="custom-select my-1 mr-sm-2"
+              formControlName="patientId"
+            >
+              <option selected disabled="">Select one</option>
+              <option *ngFor="let patient of patients" [ngValue]="patient.id">
+                {{ patient.subjectNo }}
+              </option>
+            </select>
+          </div>
+        </div>
+        <div class="mb-3">
+          <label for="visitNo">Visit No</label>
+          <div class="form-group">
+            <input
+              type="text"
+              id="visitNo"
+              formControlName="visitNo"
+              class="form-control"
+              placeholder="Enter visit no"
+            />
+          </div>
+        </div>
+        <div class="mb-3">
+          <label for="visitDate">Visit Date</label>
+          <div class="form-group">
+            <input
+              type="date"
+              id="visitDate"
+              formControlName="visitDate"
+              class="form-control"
+              placeholder="Enter visit date"
+            />
+          </div>
+        </div>
+        <div class="mb-3">
+          <label for="timeSpent">Time Spent</label>
+          <div class="form-group">
+            <select
+              class="custom-select my-1 mr-sm-2"
+              formControlName="timeSpent"
+            >
+              <option *ngFor="let number of numbers" [ngValue]="number">
+                {{ number }} Hours
+              </option>
+            </select>
+          </div>
+        </div>
+        <div class="mb-3">
+          <label for="description">Description</label>
+          <div class="form-group">
+            <input
+              type="text"
+              id="description"
+              formControlName="description"
+              class="form-control"
+              placeholder="Enter description"
+            />
+          </div>
+        </div>
+      </div>
+      <div class="card-footer">
+        <button type="submit" class="btn btn-success" [disabled]="clicked">
+          Update Visit
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

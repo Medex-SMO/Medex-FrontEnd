@@ -25,6 +25,9 @@ import { DeletePatientComponent } from './components/popup/delete/delete-patient
 import { DeleteSiteComponent } from './components/popup/delete/delete-site/delete-site.component';
 import { DeleteUserComponent } from './components/popup/delete/delete-user/delete-user.component';
 import { DeleteVisitComponent } from './components/popup/delete/delete-visit/delete-visit.component';
+import { registerLocaleData } from "@angular/common";
+
+registerLocaleData(localeEn, 'en-EN');
 
 @NgModule({
   declarations: [AppComponent, ErrorPageComponent, DeleteSponsorComponent, DeleteStudyComponent, DeleteAssignmentComponent, DeleteEquipmentComponent, DeletePatientComponent, DeleteSiteComponent, DeleteUserComponent, DeleteVisitComponent],
@@ -66,3 +69,7 @@ import { DeleteVisitComponent } from './components/popup/delete/delete-visit/del
   bootstrap: [AppComponent],
 })
 export class AppModule {}
+function localeEn(localeEn: any, arg1: string) {
+  throw new Error("Function not implemented.");
+}
+

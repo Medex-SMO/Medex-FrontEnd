@@ -49,6 +49,10 @@ const routes: Routes = [
         loadChildren: () => import('./components/equipments/equipments.module').then(m => m.EquipmentsModule)
       },
       {
+        path: 'visits',
+        loadChildren: () => import('./components/visits/visits.module').then(m => m.VisitsModule)
+      },
+      {
         path: 'ui-components',
         loadChildren: () => import('./views/pages/ui-components/ui-components.module').then(m => m.UiComponentsModule)
       },

@@ -1,0 +1,136 @@
+<div class="container-fluid">
+  <div class="card">
+    <form [formGroup]="visitAddForm">
+      <div class="card-body">
+        <div class="mb-3">
+          <label for="sponsorId">Sponsors</label>
+          <div class="row">
+            <div class="form-group col-11">
+              <select
+                class="custom-select"
+                formControlName="sponsorId"
+                (change)="selectedSponsor()"
+              >
+                <option selected disabled="">Select one</option>
+                <option *ngFor="let sponsor of sponsors" [ngValue]="sponsor.id">
+                  {{ sponsor.name }}
+                </option>
+              </select>
+            </div>
+            <app-add-sponsor class="form-group col-1"></app-add-sponsor>
+          </div>
+        </div>
+        <div class="mb-3" *ngIf="sponsorId">
+          <label for="studyId">Protocols</label>
+          <div class="row">
+            <div class="form-group col-11">
+              <select
+                class="custom-select"
+                formControlName="studyId"
+                (change)="selectedStudy()"
+              >
+                <option selected disabled="">Select one</option>
+                <option *ngFor="let study of studies" [ngValue]="study.id">
+                  {{ study.protocolCode }}
+                </option>
+              </select>
+            </div>
+            <app-add-study class="form-group col-1"></app-add-study>
+          </div>
+        </div>
+        <div class="mb-3" *ngIf="studyId">
+          <label for="siteId">Sites</label>
+          <div class="row">
+            <div class="form-group col-11">
+              <select
+                class="custom-select"
+                formControlName="siteId"
+                (change)="selectedSite()"
+              >
+                <option selected disabled="">Select one</option>
+                <option *ngFor="let site of sites" [ngValue]="site.id">
+                  {{ site.siteName }} / {{ site.siteNumber }}
+                </option>
+              </select>
+            </div>
+            <app-add-site class="form-group col-1"></app-add-site>
+          </div>
+        </div>
+        <div class="mb-3" *ngIf="siteId">
+          <label for="patientId">Patients</label>
+          <div class="row">
+            <div class="form-group col-11">
+              <select class="custom-select" formControlName="patientId">
+                <option selected disabled="">Select one</option>
+                <option *ngFor="let patient of patients" [ngValue]="patient.id">
+                  {{ patient.subjectNo }}
+                </option>
+              </select>
+            </div>
+            <app-add-patient class="form-group col-1"></app-add-patient>
+          </div>
+        </div>
+        <div class="mb-3">
+          <label for="visitNo">Visit No</label>
+          <div class="form-group">
+            <input
+              type="text"
+              id="visitNo"
+              formControlName="visitNo"
+              class="form-control"
+              placeholder="Enter visit no"
+            />
+          </div>
+        </div>
+        <div class="mb-3">
+          <label for="visitDate">Visit Date</label>
+          <div class="form-group">
+            <input
+              type="date"
+              id="visitDate"
+              formControlName="visitDate"
+              class="form-control"
+              placeholder="Enter visit date"
+            />
+          </div>
+        </div>
+        <div class="mb-3">
+          <label for="timeSpent">Time Spent</label>
+          <div class="form-group">
+            <select
+              class="custom-select my-1 mr-sm-2"
+              formControlName="timeSpent"
+            >
+              <option selected disabled="">Select one</option>
+              <option *ngFor="let number of numbers" [ngValue]="number">
+                {{ number }} Hours
+              </option>
+            </select>
+          </div>
+        </div>
+        <div class="mb-3">
+          <label for="description">Description</label>
+          <div class="form-group">
+            <input
+              type="text"
+              id="description"
+              formControlName="description"
+              class="form-control"
+              placeholder="Enter description"
+            />
+          </div>
+        </div>
+      </div>
+      <div class="card-footer">
+        <button
+          type="submit"
+          class="btn btn-success"
+          (click)="add()"
+          [disabled]="!visitAddForm.valid || clicked"
+        >
+          Submit
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
