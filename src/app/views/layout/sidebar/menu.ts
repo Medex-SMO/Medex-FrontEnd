@@ -1,57 +1,65 @@
-import { MenuItem } from './menu.model';
+import { MenuItem } from "./menu.model";
 
 export const MENU: MenuItem[] = [
   {
-    label: 'Main',
-    isTitle: true
+    label: "Main",
+    isTitle: true,
   },
   {
-    label: 'Dashboard',
-    icon: 'home',
-    link: '/dashboard'
+    label: "Dashboard",
+    icon: "home",
+    link: "/dashboard",
   },
   {
-    label: 'Visits Module',
-    isTitle: true
+    label: "Visits Module",
+    isTitle: true,
   },
   {
-    label: 'Visits',
-    icon: 'folder',
+    label: "Visits",
+    icon: "folder",
     subItems: [
       {
-        label: 'Sponsors',
-        link: '/sponsors',
+        label: "Sponsors",
+        link: "/sponsors",
+        roles: ["superuser","sitecoordinator"],
       },
       {
-        label: 'Studies',
-        link: '/studies',
+        label: "Studies",
+        link: "/studies",
+        roles: ["superuser"],
       },
       {
-        label: 'Sites',
-        link: '/sites',
+        label: "Sites",
+        link: "/sites",
+        roles: ["superuser"],
       },
       {
-        label: 'Patients',
-        link: '/patients',
+        label: "Patients",
+        link: "/patients",
+        roles: ["superuser"],
       },
       {
-        label: 'Users',
-        link: '/users',
+        label: "Users",
+        link: "/users",
+        roles: ["superuser"],
       },
       {
-        label: 'Assignments',
-        link: '/assignments',
+        label: "Assignments",
+        link: "/assignments",
+        roles: ["superuser"],
       },
       {
-        label: 'Equipments',
-        link: '/equipments',
+        label: "Equipments",
+        link: "/equipments",
+        roles: ["superuser"],
       },
       {
-        label: 'Visits',
-        link: '/visits',
+        label: "Visits",
+        link: "/visits",
+        roles: ["superuser"],
       },
-    ]
-  }
+    ],
+  },
   /* {
     label: 'Web Apps',
     isTitle: true

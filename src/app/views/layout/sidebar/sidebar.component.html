@@ -38,7 +38,6 @@
           </a>
     
           <ul class="sidebar-nav sub-menu nav-second-level" *ngIf="hasItems(item)" aria-expanded="false">
-    
             <li class="nav-item" *ngFor="let subitem of item.subItems" [ngClass]="{'side-nav-item': hasItems(subitem)}">
               <a class="nav-link side-nav-link-a-ref" *ngIf="hasItems(subitem)" href="javascript:void(0);">
                 <i class="link-icon" [attr.data-feather]="subitem.icon" appFeatherIcon *ngIf="subitem.icon"></i>
@@ -46,21 +45,23 @@
                 <span class="link-arrow" data-feather="chevron-down" appFeatherIcon></span>
               </a>
     
-              <a class="nav-link nav-link-ref" [routerLink]="subitem.link" *ngIf="!hasItems(subitem)"
+              <ng-container *ngFor="let roles of subitem.roles">
+                <a class="nav-link nav-link-ref" [routerLink]="subitem.link" *ngIf="!hasItems(subitem) && roles === currentRole"
                 [attr.data-parent]="subitem.parentId">
                 <i class="link-icon" [attr.data-feather]="subitem.icon" appFeatherIcon *ngIf="subitem.icon"></i>
                 {{ subitem.label }}
               </a>
-    
-              <ul class="sidebar-nav sub-menu nav-third-level" *ngIf="hasItems(subitem)" aria-expanded="false">
-                <li class="nav-item" *ngFor="let subSubitem of subitem.subItems">
-                  <a class="nav-link nav-link-ref" [routerLink]="subSubitem.link" [routerLinkActive]="['active']"
-                    [attr.data-parent]="subSubitem.parentId">
-                    <i class="link-icon" [attr.data-feather]="subitem.icon" appFeatherIcon *ngIf="subitem.icon"></i>
-                    {{ subSubitem.label }}
-                  </a>
-                </li>
-              </ul>
+              </ng-container>
+
+                <ul class="sidebar-nav sub-menu nav-third-level" *ngIf="hasItems(subitem)" aria-expanded="false">
+                  <li class="nav-item" *ngFor="let subSubitem of subitem.subItems">
+                    <a class="nav-link nav-link-ref" [routerLink]="subSubitem.link" [routerLinkActive]="['active']"
+                      [attr.data-parent]="subSubitem.parentId">
+                      <i class="link-icon" [attr.data-feather]="subitem.icon" appFeatherIcon *ngIf="subitem.icon"></i>
+                      {{ subSubitem.label }}
+                    </a>
+                  </li>
+                </ul>
             </li>
           </ul>
         </li>

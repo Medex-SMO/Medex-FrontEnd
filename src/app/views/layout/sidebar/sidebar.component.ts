@@ -1,28 +1,40 @@
-import { Component, OnInit, ViewChild, ElementRef, AfterViewInit, Renderer2, Inject } from '@angular/core';
-import { DOCUMENT } from '@angular/common';
+import { AuthService } from "src/app/services/auth.service";
+import {
+  Component,
+  OnInit,
+  ViewChild,
+  ElementRef,
+  AfterViewInit,
+  Renderer2,
+  Inject,
+} from "@angular/core";
+import { DOCUMENT } from "@angular/common";
 
-import MetisMenu from 'metismenujs/dist/metismenujs';
+import MetisMenu from "metismenujs/dist/metismenujs";
 
-import { MENU } from './menu';
-import { MenuItem } from './menu.model';
-import { Router, NavigationEnd } from '@angular/router';
+import { MENU } from "./menu";
+import { MenuItem } from "./menu.model";
+import { Router, NavigationEnd } from "@angular/router";
 
 @Component({
-  selector: 'app-sidebar',
-  templateUrl: './sidebar.component.html',
-  styleUrls: ['./sidebar.component.scss']
+  selector: "app-sidebar",
+  templateUrl: "./sidebar.component.html",
+  styleUrls: ["./sidebar.component.scss"],
 })
 export class SidebarComponent implements OnInit, AfterViewInit {
-
-  @ViewChild('sidebarToggler') sidebarToggler: ElementRef;
+  @ViewChild("sidebarToggler") sidebarToggler: ElementRef;
 
   menuItems = [];
-  @ViewChild('sidebarMenu') sidebarMenu: ElementRef;
+  @ViewChild("sidebarMenu") sidebarMenu: ElementRef;
 
-  constructor(@Inject(DOCUMENT) private document: Document, private renderer: Renderer2, router: Router) { 
+  constructor(
+    @Inject(DOCUMENT) private document: Document,
+    private renderer: Renderer2,
+    router: Router,
+    private authService: AuthService
+  ) {
     router.events.forEach((event) => {
       if (event instanceof NavigationEnd) {
-
         /**
          * Activating the current active item dropdown
          */
@@ -31,29 +43,44 @@ export class SidebarComponent implements OnInit, AfterViewInit {
         /**
          * closing the sidebar
          */
-        if (window.matchMedia('(max-width: 991px)').matches) {
-          this.document.body.classList.remove('sidebar-open');
+        if (window.matchMedia("(max-width: 991px)").matches) {
+          this.document.body.classList.remove("sidebar-open");
         }
-
       }
     });
   }
-
+  currentRole;
   ngOnInit(): void {
     this.menuItems = MENU;
 
     /**
      * Sidebar-folded on desktop (min-width:992px and max-width: 1199px)
      */
-    const desktopMedium = window.matchMedia('(min-width:992px) and (max-width: 1199px)');
+    const desktopMedium = window.matchMedia(
+      "(min-width:992px) and (max-width: 1199px)"
+    );
     desktopMedium.addListener(this.iconSidebar);
     this.iconSidebar(desktopMedium);
+    this.role();
+  }
+  role() {
+    for (let item of this.menuItems) {
+      if (item.subItems) {
+        for (let subitem of item.subItems) {
+          for (let roles of subitem.roles) {
+            if (roles === this.authService.currentRoles) {
+              this.currentRole = roles;
+            }
+          }
+        }
+      }
+    }
   }
 
   ngAfterViewInit() {
     // activate menu item
     new MetisMenu(this.sidebarMenu.nativeElement);
-    
+
     this._activateMenuDropdown();
   }
 
@@ -61,42 +88,39 @@ export class SidebarComponent implements OnInit, AfterViewInit {
    * Toggle sidebar on hamburger button click
    */
   toggleSidebar(e) {
-    this.sidebarToggler.nativeElement.classList.toggle('active');
-    this.sidebarToggler.nativeElement.classList.toggle('not-active');
-    if (window.matchMedia('(min-width: 992px)').matches) {
+    this.sidebarToggler.nativeElement.classList.toggle("active");
+    this.sidebarToggler.nativeElement.classList.toggle("not-active");
+    if (window.matchMedia("(min-width: 992px)").matches) {
       e.preventDefault();
-      this.document.body.classList.toggle('sidebar-folded');
-    } else if (window.matchMedia('(max-width: 991px)').matches) {
+      this.document.body.classList.toggle("sidebar-folded");
+    } else if (window.matchMedia("(max-width: 991px)").matches) {
       e.preventDefault();
-      this.document.body.classList.toggle('sidebar-open');
+      this.document.body.classList.toggle("sidebar-open");
     }
   }
 
-
   /**
-   * Toggle settings-sidebar 
+   * Toggle settings-sidebar
    */
   toggleSettingsSidebar(e) {
     e.preventDefault();
-    this.document.body.classList.toggle('settings-open');
+    this.document.body.classList.toggle("settings-open");
   }
-
 
   /**
    * Open sidebar when hover (in folded folded state)
    */
   operSidebarFolded() {
-    if (this.document.body.classList.contains('sidebar-folded')){
+    if (this.document.body.classList.contains("sidebar-folded")) {
       this.document.body.classList.add("open-sidebar-folded");
     }
   }
-
 
   /**
    * Fold sidebar after mouse leave (in folded state)
    */
   closeSidebarFolded() {
-    if (this.document.body.classList.contains('sidebar-folded')){
+    if (this.document.body.classList.contains("sidebar-folded")) {
       this.document.body.classList.remove("open-sidebar-folded");
     }
   }
@@ -106,22 +130,20 @@ export class SidebarComponent implements OnInit, AfterViewInit {
    */
   iconSidebar(e) {
     if (e.matches) {
-      this.document.body.classList.add('sidebar-folded');
+      this.document.body.classList.add("sidebar-folded");
     } else {
-      this.document.body.classList.remove('sidebar-folded');
+      this.document.body.classList.remove("sidebar-folded");
     }
   }
-
 
   /**
    * Switching sidebar light/dark
    */
   onSidebarThemeChange(event) {
-    this.document.body.classList.remove('sidebar-light', 'sidebar-dark');
+    this.document.body.classList.remove("sidebar-light", "sidebar-dark");
     this.document.body.classList.add(event.target.value);
-    this.document.body.classList.remove('settings-open');
+    this.document.body.classList.remove("settings-open");
   }
-
 
   /**
    * Returns true or false if given menu item has child or not
@@ -131,7 +153,6 @@ export class SidebarComponent implements OnInit, AfterViewInit {
     return item.subItems !== undefined ? item.subItems.length > 0 : false;
   }
 
-
   /**
    * Reset the menus then hilight current active menu item
    */
@@ -140,117 +161,115 @@ export class SidebarComponent implements OnInit, AfterViewInit {
     this.activateMenuItems();
   }
 
-
   /**
    * Resets the menus
    */
   resetMenuItems() {
+    const links = document.getElementsByClassName("nav-link-ref");
 
-    const links = document.getElementsByClassName('nav-link-ref');
-    
     for (let i = 0; i < links.length; i++) {
       const menuItemEl = links[i];
-      menuItemEl.classList.remove('mm-active');
+      menuItemEl.classList.remove("mm-active");
       const parentEl = menuItemEl.parentElement;
 
       if (parentEl) {
-          parentEl.classList.remove('mm-active');
-          const parent2El = parentEl.parentElement;
-          
-          if (parent2El) {
-            parent2El.classList.remove('mm-show');
-          }
+        parentEl.classList.remove("mm-active");
+        const parent2El = parentEl.parentElement;
 
-          const parent3El = parent2El.parentElement;
-          if (parent3El) {
-            parent3El.classList.remove('mm-active');
+        if (parent2El) {
+          parent2El.classList.remove("mm-show");
+        }
 
-            if (parent3El.classList.contains('side-nav-item')) {
-              const firstAnchor = parent3El.querySelector('.side-nav-link-a-ref');
+        const parent3El = parent2El.parentElement;
+        if (parent3El) {
+          parent3El.classList.remove("mm-active");
 
-              if (firstAnchor) {
-                firstAnchor.classList.remove('mm-active');
-              }
-            }
+          if (parent3El.classList.contains("side-nav-item")) {
+            const firstAnchor = parent3El.querySelector(".side-nav-link-a-ref");
 
-            const parent4El = parent3El.parentElement;
-            if (parent4El) {
-              parent4El.classList.remove('mm-show');
-
-              const parent5El = parent4El.parentElement;
-              if (parent5El) {
-                parent5El.classList.remove('mm-active');
-              }
+            if (firstAnchor) {
+              firstAnchor.classList.remove("mm-active");
             }
           }
+
+          const parent4El = parent3El.parentElement;
+          if (parent4El) {
+            parent4El.classList.remove("mm-show");
+
+            const parent5El = parent4El.parentElement;
+            if (parent5El) {
+              parent5El.classList.remove("mm-active");
+            }
+          }
+        }
       }
     }
-  };
-
+  }
 
   /**
    * Toggles the menu items
    */
 
   activateMenuItems() {
-
-   const links = document.getElementsByClassName('nav-link-ref');
+    const links = document.getElementsByClassName("nav-link-ref");
     let menuItemEl = null;
-    
+
     for (let i = 0; i < links.length; i++) {
       // tslint:disable-next-line: no-string-literal
-        if (window.location.pathname === links[i]['pathname']) {
-          
+      if (window.location.pathname === links[i]["pathname"]) {
+        menuItemEl = links[i];
+
+        break;
+      } else if (
+        window.location.pathname.split("/")[2] === "add" ||
+        window.location.pathname.split("/")[2] === "update"
+      ) {
+        for (let i = 0; i < links.length; i++) {
+          if (
+            "/" + window.location.pathname.split("/")[1] ===
+            links[i]["pathname"]
+          ) {
             menuItemEl = links[i];
-            
-            break;
+          }
         }
-        else if (window.location.pathname.split('/')[2] === 'add' || window.location.pathname.split('/')[2] === 'update') {
-          for (let i = 0; i < links.length; i++) {
-              if ('/'+window.location.pathname.split('/')[1] === links[i]['pathname']){
-            menuItemEl = links[i];
-          }
-          }
       }
     }
 
     if (menuItemEl) {
-        menuItemEl.classList.add('mm-active');
-        const parentEl = menuItemEl.parentElement;
+      menuItemEl.classList.add("mm-active");
+      const parentEl = menuItemEl.parentElement;
 
-        if (parentEl) {
-            parentEl.classList.add('mm-active');
+      if (parentEl) {
+        parentEl.classList.add("mm-active");
 
-            const parent2El = parentEl.parentElement;
-            if (parent2El) {
-                parent2El.classList.add('mm-show');
-            }
-
-            const parent3El = parent2El.parentElement;
-            if (parent3El) {
-                parent3El.classList.add('mm-active');
-
-                if (parent3El.classList.contains('side-nav-item')) {
-                    const firstAnchor = parent3El.querySelector('.side-nav-link-a-ref');
-
-                    if (firstAnchor) {
-                        firstAnchor.classList.add('mm-active');
-                    }
-                }
-
-                const parent4El = parent3El.parentElement;
-                if (parent4El) {
-                    parent4El.classList.add('mm-show');
-
-                    const parent5El = parent4El.parentElement;
-                    if (parent5El) {
-                        parent5El.classList.add('mm-active');
-                    }
-                }
-            }
+        const parent2El = parentEl.parentElement;
+        if (parent2El) {
+          parent2El.classList.add("mm-show");
         }
+
+        const parent3El = parent2El.parentElement;
+        if (parent3El) {
+          parent3El.classList.add("mm-active");
+
+          if (parent3El.classList.contains("side-nav-item")) {
+            const firstAnchor = parent3El.querySelector(".side-nav-link-a-ref");
+
+            if (firstAnchor) {
+              firstAnchor.classList.add("mm-active");
+            }
+          }
+
+          const parent4El = parent3El.parentElement;
+          if (parent4El) {
+            parent4El.classList.add("mm-show");
+
+            const parent5El = parent4El.parentElement;
+            if (parent5El) {
+              parent5El.classList.add("mm-active");
+            }
+          }
+        }
+      }
     }
-  };
-
-
+  }
 }
