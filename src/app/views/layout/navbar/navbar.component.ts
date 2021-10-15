@@ -1,22 +1,38 @@
-import { Component, OnInit, ViewChild, ElementRef, Inject, Renderer2 } from '@angular/core';
-import { DOCUMENT } from '@angular/common';
-import { Router } from '@angular/router';
-import { AuthService } from 'src/app/services/auth.service';
+import { UserService } from './../../../services/user.service';
+import {
+  Component,
+  OnInit,
+  ViewChild,
+  ElementRef,
+  Inject,
+  Renderer2,
+} from "@angular/core";
+import { DOCUMENT } from "@angular/common";
+import { Router } from "@angular/router";
+import { AuthService } from "src/app/services/auth.service";
+import { User } from "src/app/models/user";
 
 @Component({
-  selector: 'app-navbar',
-  templateUrl: './navbar.component.html',
-  styleUrls: ['./navbar.component.scss']
+  selector: "app-navbar",
+  templateUrl: "./navbar.component.html",
+  styleUrls: ["./navbar.component.scss"],
 })
 export class NavbarComponent implements OnInit {
+  public user;
+
 
   constructor(
-    @Inject(DOCUMENT) private document: Document, 
+    @Inject(DOCUMENT) private document: Document,
     private authService: AuthService,
-    private router: Router
-  ) { }
+    private userService: UserService
+  ) {}
 
   ngOnInit(): void {
+    this.userService
+            .getUserByEmail(localStorage.getItem('fullName'))
+            .subscribe((response) => {
+                this.user = response.data;
+            });
   }
 
   /**
@@ -24,7 +40,7 @@ export class NavbarComponent implements OnInit {
    */
   toggleSidebar(e) {
     e.preventDefault();
-    this.document.body.classList.toggle('sidebar-open');
+    this.document.body.classList.toggle("sidebar-open");
   }
 
   /**
@@ -32,7 +48,6 @@ export class NavbarComponent implements OnInit {
    */
   onLogout(e) {
     e.preventDefault();
-    this.authService.logout()
+    this.authService.logout();
   }
-
 }
