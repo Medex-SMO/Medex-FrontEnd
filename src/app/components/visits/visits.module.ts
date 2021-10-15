@@ -8,19 +8,32 @@ import { FeahterIconModule } from "src/app/core/feather-icon/feather-icon.module
 import { PopupModule } from "../popup/popup.module";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { DataTablesModule } from "angular-datatables";
+import { RoleGuard } from "src/app/guards/role.guard";
 
 const routes: Routes = [
   {
     path: "",
     component: VisitListComponent,
+    canActivate: [RoleGuard],
+    data: {
+      expectedRole: ["superuser"],
+    },
   },
   {
     path: "add",
     component: VisitAddComponent,
+    canActivate: [RoleGuard],
+    data: {
+      expectedRole: ["visit.add", "superuser"],
+    },
   },
   {
     path: "update/:visitId",
     component: VisitUpdateComponent,
+    canActivate: [RoleGuard],
+    data: {
+      expectedRole: ["visit.update", "superuser"],
+    },
   },
 ];
 

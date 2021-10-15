@@ -8,19 +8,32 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { StudyAddComponent } from "./study-add/study-add.component";
 import { StudyUpdateComponent } from "./study-update/study-update.component";
 import { PopupModule } from "../popup/popup.module";
+import { RoleGuard } from "src/app/guards/role.guard";
 
 const routes: Routes = [
   {
     path: "",
     component: StudyListComponent,
+    canActivate: [RoleGuard],
+    data: {
+      expectedRole: ["superuser"],
+    },
   },
   {
     path: "add",
     component: StudyAddComponent,
+    canActivate: [RoleGuard],
+    data: {
+      expectedRole: ["study.add", "superuser"],
+    },
   },
   {
     path: "update/:studyId",
     component: StudyUpdateComponent,
+    canActivate: [RoleGuard],
+    data: {
+      expectedRole: ["study.update", "superuser"],
+    },
   },
 ];
 
@@ -33,7 +46,7 @@ const routes: Routes = [
     DataTablesModule,
     FormsModule,
     ReactiveFormsModule,
-    PopupModule
+    PopupModule,
   ],
 })
 export class StudiesModule {}
