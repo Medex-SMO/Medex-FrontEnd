@@ -21,7 +21,7 @@ export const MENU: MenuItem[] = [
       {
         label: "Sponsors",
         link: "/sponsors",
-        roles: ["superuser","sitecoordinator"],
+        roles: ["superuser"],
       },
       {
         label: "Studies",
@@ -56,7 +56,7 @@ export const MENU: MenuItem[] = [
       {
         label: "Visits",
         link: "/visits",
-        roles: ["superuser"],
+        roles: ["superuser","sitecoordinator"],
       },
     ],
   },

@@ -16,7 +16,7 @@ const routes: Routes = [
     component: VisitListComponent,
     canActivate: [RoleGuard],
     data: {
-      expectedRole: ["superuser"],
+      expectedRole: ["superuser","sitecoordinator"],
     },
   },
   {
@@ -24,7 +24,7 @@ const routes: Routes = [
     component: VisitAddComponent,
     canActivate: [RoleGuard],
     data: {
-      expectedRole: ["visit.add", "superuser"],
+      expectedRole: ["visit.add", "superuser","sitecoordinator"],
     },
   },
   {
@@ -32,7 +32,7 @@ const routes: Routes = [
     component: VisitUpdateComponent,
     canActivate: [RoleGuard],
     data: {
-      expectedRole: ["visit.update", "superuser"],
+      expectedRole: ["visit.update", "superuser","sitecoordinator"],
     },
   },
 ];

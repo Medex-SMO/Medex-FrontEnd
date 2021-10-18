@@ -11,7 +11,7 @@ import { Label, Color, SingleDataSet } from 'ng2-charts';
 // Progressbar.js
 import ProgressBar from 'progressbar.js';
 
-export type apexChartOptions = {
+/* export type apexChartOptions = {
   series: ApexAxisChartSeries;
   nonAxisSeries: ApexNonAxisChartSeries;
   colors: string[];
@@ -29,7 +29,7 @@ export type apexChartOptions = {
   plotOptions: ApexPlotOptions,
   labels: string[],
   title: ApexTitleSubtitle
-};
+}; */
 
 @Component({
   selector: 'app-dashboard',
@@ -42,20 +42,20 @@ export class DashboardComponent implements OnInit {
   /**
    * Apex chart
    */
-  public apexChart1Options: Partial<apexChartOptions>;
+  /* public apexChart1Options: Partial<apexChartOptions>;
   public apexChart2Options: Partial<apexChartOptions>;
   public apexChart3Options: Partial<apexChartOptions>;
-  public apexChart4Options: Partial<apexChartOptions>;
+  public apexChart4Options: Partial<apexChartOptions>; */
 
   /**
    * NgbDatepicker
    */
-  currentDate: NgbDateStruct;
+  /* currentDate: NgbDateStruct; */
 
   /**
    * Ng2 Bar Chart 1
    */
-  public ng2BarChart1Options: ChartOptions = {
+  /* public ng2BarChart1Options: ChartOptions = {
     responsive: true,
     maintainAspectRatio: false,
     legend: {
@@ -91,7 +91,7 @@ export class DashboardComponent implements OnInit {
   public ng2BarChart1Legend = false;
   public ng2BarChart1Data: ChartDataSets[] = [
     { data: [150,110,90,115,125,160,190,140,100,110,120,120], label: 'Sales', categoryPercentage: .6, barPercentage: .3 }
-  ];
+  ]; */
 
 
 
@@ -100,7 +100,7 @@ export class DashboardComponent implements OnInit {
     /**
      * ApexChart1 options
      */
-    this.apexChart1Options = {
+    /* this.apexChart1Options = {
       chart: {
         type: "line",
         height: 60,
@@ -137,14 +137,14 @@ export class DashboardComponent implements OnInit {
           show: !1
         }
       }
-    };
+    }; */
 
 
 
     /**
      * ApexChart2 options
      */
-    this.apexChart2Options = {
+    /* this.apexChart2Options = {
       chart: {
         type: "bar",
         height: 60,
@@ -185,14 +185,14 @@ export class DashboardComponent implements OnInit {
           show: !1
         }
       }
-    };
+    }; */
 
 
 
     /**
      * ApexChart3 options
      */
-    this.apexChart3Options = {
+    /* this.apexChart3Options = {
       chart: {
         type: "line",
         height: 60,
@@ -229,14 +229,14 @@ export class DashboardComponent implements OnInit {
           show: !1
         }
       }
-    };
+    }; */
 
 
 
     /**
      * ApexChart4 options
      */
-    this.apexChart4Options = {
+    /* this.apexChart4Options = {
       chart: {
         type: "line",
         height: 350,
@@ -457,18 +457,18 @@ export class DashboardComponent implements OnInit {
           show: !1
         }
       }
-    };
+    }; */
 
 
   }
 
   ngOnInit(): void {
-    this.currentDate = this.calendar.getToday();
+    /* this.currentDate = this.calendar.getToday(); */
 
     /**
      * Progressbar1 initialization
      */
-    var progressbar1 = new ProgressBar.Circle('#progressbar1', {
+    /* var progressbar1 = new ProgressBar.Circle('#progressbar1', {
       color: '#727cf5',
       trailColor: 'rgba(77, 138, 240, .1)',
       // This has to be the same size as the maximum width to
@@ -498,7 +498,7 @@ export class DashboardComponent implements OnInit {
     });
     progressbar1.text.style.fontFamily = "'Overpass', sans-serif;";
     progressbar1.text.style.fontSize = '3rem';
-    progressbar1.animate(.78);
+    progressbar1.animate(.78); */
 
 
   }
