@@ -39,6 +39,19 @@
           </div>
         </div>
         <div class="mb-3">
+          <label for="operationClaimId">Roles</label>
+          <div class="row">
+            <div class="form-group col-11">
+              <select class="custom-select" formControlName="operationClaimId">
+                <option selected disabled="">Select one</option>
+                <option *ngFor="let operationClaim of operationClaims" [ngValue]="operationClaim.id">
+                  {{ operationClaim.name }}
+                </option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="mb-3">
           <label for="password">Password</label>
           <div class="form-group">
             <input
