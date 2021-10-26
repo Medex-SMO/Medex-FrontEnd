@@ -35,6 +35,11 @@ export class UserAddComponent implements OnInit {
     this.getOperationClaims();
   }
 
+  generate(){
+    let randPassword = Array(8).fill("0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz~!@-#$").map(function(x) { return x[Math.floor(Math.random() * x.length)] }).join('');
+    this.userAddForm.controls['password'].setValue(randPassword);
+  }
+
   createUserAddForm() {
     this.userAddForm = this.formBuilder.group({
       firstName: ["", Validators.required],
