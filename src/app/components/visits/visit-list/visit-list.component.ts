@@ -5,6 +5,7 @@ import { ToastrService } from "ngx-toastr";
 import { Subject } from "rxjs";
 import { Visit } from "src/app/models/visit";
 import { VisitModel } from "src/app/models/visitModel";
+import { AuthService } from "src/app/services/auth.service";
 import { VisitService } from "src/app/services/visit.service";
 import { DeleteVisitComponent } from "../../popup/delete/delete-visit/delete-visit.component";
 
@@ -21,7 +22,9 @@ export class VisitListComponent implements OnInit {
   dtTrigger: Subject<any> = new Subject<any>();
 
   visits: VisitModel[];
+  userId : number
   constructor(
+    private authService: AuthService,
     private visitService: VisitService,
     private toastrService: ToastrService,
     private modalService: NgbModal
@@ -31,7 +34,13 @@ export class VisitListComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getVisitsDetail();
+    this.userId = this.authService.currentUserId
+    if(this.authService.currentRoles == "superuser"){
+      this.getVisitsDetail();
+    }
+    else{
+      this.getVisitsDetailByUserId(this.userId);
+    }
     this.dtOptions = {
       dom: "Bfrtip",
       initComplete: function (settings, json) {
@@ -84,6 +93,13 @@ export class VisitListComponent implements OnInit {
 
   getVisitsDetail() {
     this.visitService.getVisitsDetails().subscribe((response) => {
+      this.visits = response.data;
+      this.dtTrigger.next();
+    });
+  }
+
+  getVisitsDetailByUserId(userId : number) {
+    this.visitService.getVisitsDetailsByUserId(this.userId).subscribe((response) => {
       this.visits = response.data;
       this.dtTrigger.next();
     });
