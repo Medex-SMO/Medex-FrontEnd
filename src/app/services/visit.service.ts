@@ -24,6 +24,11 @@ export class VisitService {
     return this.httpClient.get<ListResponseModel<VisitModel>>(newPath);
   }
 
+  getVisitsDetailsByUserId(userId: number): Observable<ListResponseModel<VisitModel>> {
+    let newPath = environment.apiUrl + "visits/getvisitsdetailsbyuserid?userid=" + userId;
+    return this.httpClient.get<ListResponseModel<VisitModel>>(newPath);
+  }
+
   add(visit: Visit): Observable<ResponseModel> {
     return this.httpClient.post<ResponseModel>(
       environment.apiUrl + "visits/add",

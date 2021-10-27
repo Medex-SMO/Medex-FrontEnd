@@ -20,6 +20,7 @@
         >
           <thead>
             <tr>
+              <th>Username</th>
               <th>Patient</th>
               <th>Visit No</th>
               <th>Visit Date</th>
@@ -30,6 +31,7 @@
           </thead>
           <tbody>
             <tr *ngFor="let visit of visits">
+              <td>{{ visit.name }}</td>
               <td>{{ visit.subjectNo }}</td>
               <td>{{ visit.visitNo }}</td>
               <td>

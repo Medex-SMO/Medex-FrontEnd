@@ -6,6 +6,7 @@ import { Patient } from "src/app/models/patient";
 import { Site } from "src/app/models/site";
 import { Sponsor } from "src/app/models/sponsor";
 import { Study } from "src/app/models/study";
+import { AuthService } from "src/app/services/auth.service";
 import { PatientService } from "src/app/services/patient.service";
 import { SiteService } from "src/app/services/site.service";
 import { SponsorService } from "src/app/services/sponsor.service";
@@ -34,6 +35,7 @@ export class VisitAddComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
+    private authService: AuthService,
     private visitService: VisitService,
     private patientService: PatientService,
     private siteService: SiteService,
@@ -75,6 +77,7 @@ export class VisitAddComponent implements OnInit {
       visitDate: ["", Validators.required],
       timeSpent: ["", Validators.required],
       description: ["", Validators.required],
+      userId: [this.authService.currentUserId]
     });
   }
 
