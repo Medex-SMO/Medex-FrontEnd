@@ -1,3 +1,4 @@
+import { NgbDatepickerModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { VisitListComponent } from "./visit-list/visit-list.component";
@@ -47,6 +48,7 @@ const routes: Routes = [
     FormsModule,
     ReactiveFormsModule,
     PopupModule,
+    NgbDatepickerModule
   ],
 })
 export class VisitsModule {}

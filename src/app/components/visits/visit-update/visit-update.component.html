@@ -29,15 +29,17 @@
           </div>
         </div>
         <div class="mb-3">
-          <label for="visitDate">Visit Date</label>
+          <label for="visitNo">Visit Date</label>
           <div class="form-group">
-            <input
-              type="date"
-              id="visitDate"
-              formControlName="visitDate"
-              class="form-control"
-              placeholder="Enter visit date"
-            />
+            <div class="input-group" (click)="d.toggle()">
+              <input class="form-control" placeholder="yyyy-mm-dd"
+                  name="dp" (dateSelect)="onDateSelect($event)" ngbDatepicker #d="ngbDatepicker" placement="top-left" autoClose="true">
+              <div class="input-group-append">
+                <button class="btn btn-outline-light btn-icon calendar" type="button">
+                  <i data-feather="calendar" appFeatherIcon class="text-secondary"></i>
+                </button>
+              </div>
+            </div>
           </div>
         </div>
         <div class="mb-3">

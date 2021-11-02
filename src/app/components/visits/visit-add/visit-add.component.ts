@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
+import { NgbDateStruct } from "@ng-bootstrap/ng-bootstrap";
 import { ToastrService } from "ngx-toastr";
 import { Patient } from "src/app/models/patient";
 import { Site } from "src/app/models/site";
@@ -74,10 +75,10 @@ export class VisitAddComponent implements OnInit {
       siteId: ["", Validators.required],
       patientId: ["", Validators.required],
       visitNo: ["", Validators.required],
-      visitDate: ["", Validators.required],
       timeSpent: ["", Validators.required],
       description: ["", Validators.required],
-      userId: [this.authService.currentUserId]
+      visitDate: ["",Validators.required],
+      userId: [this.authService.currentUserId],
     });
   }
 
@@ -105,8 +106,17 @@ export class VisitAddComponent implements OnInit {
       .subscribe((response) => (this.patients = response.data));
   }
 
+  onDateSelect(event) {
+    let year = event.year;
+    let month = event.month <= 9 ? "0" + event.month : event.month;
+    let day = event.day <= 9 ? "0" + event.day : event.day;
+    let finalDate = year + "-" + month + "-" + day;
+    this.visitAddForm.controls["visitDate"].setValue(finalDate);
+  }
+
   add() {
     let visitModel = Object.assign({}, this.visitAddForm.value);
+    console.log(visitModel);
     this.visitService.add(visitModel).subscribe(
       (response) => {
         this.clicked = true;

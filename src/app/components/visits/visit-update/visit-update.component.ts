@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { ToastrService } from "ngx-toastr";
 import { Patient } from "src/app/models/patient";
 import { Visit } from "src/app/models/visit";
+import { AuthService } from "src/app/services/auth.service";
 import { PatientService } from "src/app/services/patient.service";
 import { VisitService } from "src/app/services/visit.service";
 
@@ -28,6 +29,7 @@ export class VisitUpdateComponent implements OnInit {
 
   constructor(
     private visitService: VisitService,
+    private authService: AuthService,
     private patientService: PatientService,
     private formBuilder: FormBuilder,
     private toastrService: ToastrService,
@@ -54,6 +56,7 @@ export class VisitUpdateComponent implements OnInit {
       visitDate: [this.visitDate ? this.visitDate : ""],
       timeSpent: [this.timeSpent ? this.timeSpent : ""],
       description: [this.description ? this.description : ""],
+      userId: [this.authService.currentUserId]
     });
   }
 
@@ -76,6 +79,14 @@ export class VisitUpdateComponent implements OnInit {
       this.description = this.visit.description;
       this.createVisitUpdateForm();
     });
+  }
+
+  onDateSelect(event) {
+    let year = event.year;
+    let month = event.month <= 9 ? "0" + event.month : event.month;
+    let day = event.day <= 9 ? "0" + event.day : event.day;
+    let finalDate = year + "-" + month + "-" + day;
+    this.visitUpdateForm.controls["visitDate"].setValue(finalDate);
   }
 
   update() {
