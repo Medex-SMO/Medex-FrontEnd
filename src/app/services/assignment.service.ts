@@ -51,4 +51,19 @@ export class AssignmentService {
     let newPath = environment.apiUrl + "assignments/getbyid?id=" + studyId;
     return this.httpClient.get<SingleResponseModel<Assignment>>(newPath);
   }
+
+  getSponsorsByUserId(userId: number): Observable<ListResponseModel<AssignmentModel>>{
+    let newPath = environment.apiUrl + "assignments/getsponsorsbyuserid?userId=" + userId;
+    return this.httpClient.get<ListResponseModel<AssignmentModel>>(newPath);
+  }
+
+  getSponsorsByUserIdAndSponsorName(userId: number, sponsorName: string): Observable<ListResponseModel<AssignmentModel>>{
+    let newPath = environment.apiUrl + "assignments/getsponsorsbyuserid?userId=" + userId+"&sponsorName="+sponsorName;
+    return this.httpClient.get<ListResponseModel<AssignmentModel>>(newPath);
+  }
+
+  getSponsorsByUserIdAndSponsorNameAndProtocolCode(userId: number, sponsorName: string, protocolCode: string): Observable<ListResponseModel<AssignmentModel>>{
+    let newPath = environment.apiUrl + "assignments/getsponsorsbyuserid?userId=" + userId+"&sponsorName="+sponsorName+"&protocolCode="+protocolCode;
+    return this.httpClient.get<ListResponseModel<AssignmentModel>>(newPath);
+  }
 }

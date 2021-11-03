@@ -1,3 +1,7 @@
+import { PatientModel } from './../../../models/patientModel';
+import { AssignmentModel } from './../../../models/assignmentModel';
+import { Assignment } from 'src/app/models/assignment';
+import { AssignmentService } from 'src/app/services/assignment.service';
 import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
@@ -20,7 +24,7 @@ import { VisitService } from "src/app/services/visit.service";
   styleUrls: ["./visit-add.component.scss"],
 })
 export class VisitAddComponent implements OnInit {
-  patients: Patient[];
+  patients: PatientModel[];
   visitAddForm: FormGroup;
 
   studies: Study[];
@@ -28,9 +32,13 @@ export class VisitAddComponent implements OnInit {
 
   sponsors: Sponsor[];
 
-  sponsorId: number;
-  studyId: number;
-  siteId: number;
+  assignments: AssignmentModel[];
+  assignments1: AssignmentModel[];
+  assignments2: AssignmentModel[];
+
+  sponsorName: string;
+  protocolCode: string;
+  siteName: string;
 
   clicked = false;
 
@@ -39,40 +47,38 @@ export class VisitAddComponent implements OnInit {
     private authService: AuthService,
     private visitService: VisitService,
     private patientService: PatientService,
-    private siteService: SiteService,
-    private studyService: StudyService,
-    private sponsorService: SponsorService,
+    private assignmentService: AssignmentService,
     private toastrService: ToastrService,
     private router: Router
   ) {}
 
   ngOnInit(): void {
-    this.getSponsors();
+    this.getSponsorsByUserId(this.authService.currentUserId)
     this.createVisitAddForm();
   }
 
   selectedSponsor() {
-    this.sponsorId = this.visitAddForm.controls["sponsorId"].value;
-    this.getStudiesBySponsorId(this.sponsorId);
+    this.sponsorName = this.visitAddForm.controls["sponsorName"].value;
+    this.getSponsorsByUserIdAndSponsorName(this.authService.currentUserId,this.sponsorName);
   }
 
   selectedStudy() {
-    this.studyId = this.visitAddForm.controls["studyId"].value;
-    this.getSitesByStudyId(this.studyId);
+    this.protocolCode = this.visitAddForm.controls["protocolCode"].value;
+    this.getSponsorsByUserIdAndSponsorNameAndProtocolCode(this.authService.currentUserId,this.sponsorName,this.protocolCode);
   }
 
   selectedSite() {
-    this.siteId = this.visitAddForm.controls["siteId"].value;
-    this.getPatientsBySiteId(this.siteId);
+    this.siteName = this.visitAddForm.controls["siteName"].value;
+    this.getPatientsBySiteName(this.siteName);
   }
 
   numbers: number[] = [1, 2, 3, 4, 5, 6, 7, 8];
 
   createVisitAddForm() {
     this.visitAddForm = this.formBuilder.group({
-      sponsorId: ["", Validators.required],
-      studyId: ["", Validators.required],
-      siteId: ["", Validators.required],
+      sponsorName: ["", Validators.required],
+      protocolCode: ["", Validators.required],
+      siteName: ["", Validators.required],
       patientId: ["", Validators.required],
       visitNo: ["", Validators.required],
       timeSpent: ["", Validators.required],
@@ -82,27 +88,26 @@ export class VisitAddComponent implements OnInit {
     });
   }
 
-  getSponsors() {
-    this.sponsorService
-      .get()
-      .subscribe((response) => (this.sponsors = response.data));
+  getSponsorsByUserId(userId: number) {
+    this.assignmentService
+      .getSponsorsByUserId(userId)
+      .subscribe((response) => (this.assignments = response.data));
   }
 
-  getStudiesBySponsorId(sponsorId: number) {
-    this.studyService
-      .getStudiesBySponsor(sponsorId)
-      .subscribe((response) => (this.studies = response.data));
+  getSponsorsByUserIdAndSponsorName(userId: number, sponsorName: string) {
+    this.assignmentService.getSponsorsByUserIdAndSponsorName(userId, sponsorName)
+      .subscribe((response) => (this.assignments1 = response.data));
   }
 
-  getSitesByStudyId(studyId: number) {
-    this.siteService
-      .getSitesByStudy(studyId)
-      .subscribe((response) => (this.sites = response.data));
+  getSponsorsByUserIdAndSponsorNameAndProtocolCode(userId: number, sponsorName: string, protocolCode: string) {
+    this.assignmentService
+      .getSponsorsByUserIdAndSponsorNameAndProtocolCode(userId,sponsorName,protocolCode)
+      .subscribe((response) => (this.assignments2 = response.data));
   }
 
-  getPatientsBySiteId(siteId: number) {
+  getPatientsBySiteName(siteName: string) {
     this.patientService
-      .getPatientsBySite(siteId)
+      .getPatientsBySiteName(siteName)
       .subscribe((response) => (this.patients = response.data));
   }
 

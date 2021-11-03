@@ -25,6 +25,12 @@ export class PatientService {
     return this.httpClient.get<ListResponseModel<Patient>>(newPath);
   }
 
+  getPatientsBySiteName(siteName: string): Observable<ListResponseModel<PatientModel>> {
+    let newPath =
+      environment.apiUrl + "patients/getpatientsbysitename?siteName=" + siteName;
+    return this.httpClient.get<ListResponseModel<PatientModel>>(newPath);
+  }
+
   getPatientsDetails(): Observable<ListResponseModel<PatientModel>> {
     let newPath = environment.apiUrl + "patients/getpatientsdetails";
     return this.httpClient.get<ListResponseModel<PatientModel>>(newPath);

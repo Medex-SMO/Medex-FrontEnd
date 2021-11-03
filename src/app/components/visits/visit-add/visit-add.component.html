@@ -3,60 +3,60 @@
     <form [formGroup]="visitAddForm">
       <div class="card-body">
         <div class="mb-3">
-          <label for="sponsorId">Sponsors</label>
+          <label for="sponsorName">Sponsors</label>
           <div class="row">
             <div class="form-group col-11">
               <select
                 class="custom-select"
-                formControlName="sponsorId"
+                formControlName="sponsorName"
                 (change)="selectedSponsor()"
               >
                 <option selected disabled="">Select one</option>
-                <option *ngFor="let sponsor of sponsors" [ngValue]="sponsor.id">
-                  {{ sponsor.name }}
+                <option *ngFor="let assignment of assignments" [ngValue]="assignment.sponsorName">
+                  {{ assignment.sponsorName }}
                 </option>
               </select>
             </div>
             <app-add-sponsor class="form-group col-1"></app-add-sponsor>
           </div>
         </div>
-        <div class="mb-3" *ngIf="sponsorId">
-          <label for="studyId">Protocols</label>
+        <div class="mb-3" *ngIf="sponsorName">
+          <label for="protocolCode">Protocols</label>
           <div class="row">
             <div class="form-group col-11">
               <select
                 class="custom-select"
-                formControlName="studyId"
+                formControlName="protocolCode"
                 (change)="selectedStudy()"
               >
                 <option selected disabled="">Select one</option>
-                <option *ngFor="let study of studies" [ngValue]="study.id">
-                  {{ study.protocolCode }}
+                <option *ngFor="let assignment of assignments1" [ngValue]="assignment.protocolCode">
+                  {{ assignment.protocolCode }}
                 </option>
               </select>
             </div>
             <app-add-study class="form-group col-1"></app-add-study>
           </div>
         </div>
-        <div class="mb-3" *ngIf="studyId">
-          <label for="siteId">Sites</label>
+        <div class="mb-3" *ngIf="protocolCode">
+          <label for="siteName">Sites</label>
           <div class="row">
             <div class="form-group col-11">
               <select
                 class="custom-select"
-                formControlName="siteId"
+                formControlName="siteName"
                 (change)="selectedSite()"
               >
                 <option selected disabled="">Select one</option>
-                <option *ngFor="let site of sites" [ngValue]="site.id">
-                  {{ site.siteName }} / {{ site.siteNumber }}
+                <option *ngFor="let assignment of assignments2" [ngValue]="assignment.siteName">
+                  {{ assignment.siteName }} / {{ assignment.siteNumber }}
                 </option>
               </select>
             </div>
             <app-add-site class="form-group col-1"></app-add-site>
           </div>
         </div>
-        <div class="mb-3" *ngIf="siteId">
+        <div class="mb-3" *ngIf="siteName">
           <label for="patientId">Patients</label>
           <div class="row">
             <div class="form-group col-11">
