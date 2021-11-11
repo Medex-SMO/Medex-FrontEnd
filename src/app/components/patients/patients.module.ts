@@ -16,7 +16,7 @@ const routes: Routes = [
     component: PatientListComponent,
     canActivate: [RoleGuard],
     data: {
-      expectedRole: ["superuser"],
+      expectedRole: ["superuser", "sitecoordinator"],
     },
   },
   {
@@ -24,7 +24,7 @@ const routes: Routes = [
     component: PatientAddComponent,
     canActivate: [RoleGuard],
     data: {
-      expectedRole: ["patient.add", "superuser"],
+      expectedRole: ["patient.add", "superuser", "sitecoordinator"],
     },
   },
   {
@@ -32,7 +32,7 @@ const routes: Routes = [
     component: PatientUpdateComponent,
     canActivate: [RoleGuard],
     data: {
-      expectedRole: ["patient.update", "superuser"],
+      expectedRole: ["patient.update", "superuser", "sitecoordinator"],
     },
   },
 ];
