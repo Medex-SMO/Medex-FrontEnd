@@ -39,16 +39,16 @@
           </div>
         </div>
         <div class="mb-3" *ngIf="protocolCode">
-          <label for="siteName">Sites</label>
+          <label for="siteNumber">Sites</label>
           <div class="row">
             <div class="form-group col-11">
               <select
                 class="custom-select"
-                formControlName="siteName"
+                formControlName="siteNumber"
                 (change)="selectedSite()"
               >
                 <option selected disabled="">Select one</option>
-                <option *ngFor="let assignment of assignments2" [ngValue]="assignment.siteName">
+                <option *ngFor="let assignment of assignments2" [ngValue]="assignment.siteNumber">
                   {{ assignment.siteName }} / {{ assignment.siteNumber }}
                 </option>
               </select>
@@ -56,7 +56,7 @@
             <app-add-site class="form-group col-1"></app-add-site>
           </div>
         </div>
-        <div class="mb-3" *ngIf="siteName">
+        <div class="mb-3" *ngIf="siteNumber">
           <label for="patientId">Patients</label>
           <div class="row">
             <div class="form-group col-11">

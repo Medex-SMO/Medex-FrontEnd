@@ -43,4 +43,9 @@ export class SponsorService {
     let newPath = environment.apiUrl + "sponsors/getbyid?id=" + sponsorId;
     return this.httpClient.get<SingleResponseModel<Sponsor>>(newPath);
   }
+
+  getSponsorByName(name: string): Observable<SingleResponseModel<Sponsor>> {
+    let newPath = environment.apiUrl + "sponsors/getbyname?name=" + name;
+    return this.httpClient.get<SingleResponseModel<Sponsor>>(newPath);
+  }
 }

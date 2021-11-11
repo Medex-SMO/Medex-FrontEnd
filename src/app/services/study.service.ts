@@ -55,4 +55,9 @@ export class StudyService {
     let newPath = environment.apiUrl + "studies/getbyid?id=" + studyId;
     return this.httpClient.get<SingleResponseModel<Study>>(newPath);
   }
+
+  getStudyByProtocolCode(protocolCode: string): Observable<SingleResponseModel<Study>> {
+    let newPath = environment.apiUrl + "studies/getbyprotocolcode?protocolcode=" + protocolCode;
+    return this.httpClient.get<SingleResponseModel<Study>>(newPath);
+  }
 }

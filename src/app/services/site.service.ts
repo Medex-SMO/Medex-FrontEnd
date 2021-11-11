@@ -54,4 +54,9 @@ export class SiteService {
     let newPath = environment.apiUrl + "sites/getbyid?id=" + siteId;
     return this.httpClient.get<SingleResponseModel<Site>>(newPath);
   }
+
+  getSiteBySiteNumber(siteNumber: string): Observable<SingleResponseModel<Site>> {
+    let newPath = environment.apiUrl + "sites/getbysitenumber?sitenumber=" + siteNumber;
+    return this.httpClient.get<SingleResponseModel<Site>>(newPath);
+  }
 }

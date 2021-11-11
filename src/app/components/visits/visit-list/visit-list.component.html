@@ -21,6 +21,10 @@
           <thead>
             <tr>
               <th>Username</th>
+              <th>Sponsor</th>
+              <th>Protocol Code</th>
+              <th>Site Name</th>
+              <th>Site Code</th>
               <th>Patient</th>
               <th>Visit No</th>
               <th>Visit Date</th>
@@ -32,6 +36,10 @@
           <tbody>
             <tr *ngFor="let visit of visits">
               <td>{{ visit.name }}</td>
+              <td>{{ visit.sponsorName }}</td>
+              <td>{{ visit.protocolCode }}</td>
+              <td>{{ visit.siteName }}</td>
+              <td>{{ visit.siteNumber }}</td>
               <td>{{ visit.subjectNo }}</td>
               <td>{{ visit.visitNo }}</td>
               <td>

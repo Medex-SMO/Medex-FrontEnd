@@ -1,3 +1,6 @@
+import { SiteService } from 'src/app/services/site.service';
+import { StudyService } from 'src/app/services/study.service';
+import { SponsorService } from 'src/app/services/sponsor.service';
 import { PatientModel } from './../../../models/patientModel';
 import { AssignmentModel } from './../../../models/assignmentModel';
 import { Assignment } from 'src/app/models/assignment';
@@ -13,9 +16,6 @@ import { Sponsor } from "src/app/models/sponsor";
 import { Study } from "src/app/models/study";
 import { AuthService } from "src/app/services/auth.service";
 import { PatientService } from "src/app/services/patient.service";
-import { SiteService } from "src/app/services/site.service";
-import { SponsorService } from "src/app/services/sponsor.service";
-import { StudyService } from "src/app/services/study.service";
 import { VisitService } from "src/app/services/visit.service";
 
 @Component({
@@ -38,18 +38,26 @@ export class VisitAddComponent implements OnInit {
 
   sponsorName: string;
   protocolCode: string;
-  siteName: string;
+  siteNumber: string;
+
+  sponsor: Sponsor
+  study: Study
+  site: Site
 
   clicked = false;
 
   constructor(
     private formBuilder: FormBuilder,
     private authService: AuthService,
+    private sponsorService: SponsorService,
+    private studyService: StudyService,
+    private siteService: SiteService,
     private visitService: VisitService,
     private patientService: PatientService,
     private assignmentService: AssignmentService,
     private toastrService: ToastrService,
-    private router: Router
+    private router: Router,
+    private fb: FormBuilder
   ) {}
 
   ngOnInit(): void {
@@ -60,16 +68,25 @@ export class VisitAddComponent implements OnInit {
   selectedSponsor() {
     this.sponsorName = this.visitAddForm.controls["sponsorName"].value;
     this.getSponsorsByUserIdAndSponsorName(this.authService.currentUserId,this.sponsorName);
+    this.sponsorService.getSponsorByName(this.sponsorName).subscribe((response) =>{
+      this.sponsor = response.data
+    })
   }
 
   selectedStudy() {
     this.protocolCode = this.visitAddForm.controls["protocolCode"].value;
     this.getSponsorsByUserIdAndSponsorNameAndProtocolCode(this.authService.currentUserId,this.sponsorName,this.protocolCode);
+    this.studyService.getStudyByProtocolCode(this.protocolCode).subscribe((response) => {
+      this.study = response.data
+    })
   }
 
   selectedSite() {
-    this.siteName = this.visitAddForm.controls["siteName"].value;
-    this.getPatientsBySiteName(this.siteName);
+    this.siteNumber = this.visitAddForm.controls["siteNumber"].value;
+    this.getPatientsBySiteNumber(this.siteNumber);
+    this.siteService.getSiteBySiteNumber(this.siteNumber).subscribe((response) => {
+      this.site = response.data
+    })
   }
 
   numbers: number[] = [1, 2, 3, 4, 5, 6, 7, 8];
@@ -78,7 +95,7 @@ export class VisitAddComponent implements OnInit {
     this.visitAddForm = this.formBuilder.group({
       sponsorName: ["", Validators.required],
       protocolCode: ["", Validators.required],
-      siteName: ["", Validators.required],
+      siteNumber: ["", Validators.required],
       patientId: ["", Validators.required],
       visitNo: ["", Validators.required],
       timeSpent: ["", Validators.required],
@@ -105,10 +122,13 @@ export class VisitAddComponent implements OnInit {
       .subscribe((response) => (this.assignments2 = response.data));
   }
 
-  getPatientsBySiteName(siteName: string) {
+  getPatientsBySiteNumber(siteNumber: string) {
     this.patientService
-      .getPatientsBySiteName(siteName)
-      .subscribe((response) => (this.patients = response.data));
+      .getPatientsBySiteNumber(siteNumber)
+      .subscribe((response) => {
+        this.patients = response.data
+        console.log(siteNumber)
+      });
   }
 
   onDateSelect(event) {
@@ -120,6 +140,9 @@ export class VisitAddComponent implements OnInit {
   }
 
   add() {
+    this.visitAddForm.addControl("sponsorId",this.fb.control(this.sponsor.id))
+    this.visitAddForm.addControl("studyId",this.fb.control(this.study.id))
+    this.visitAddForm.addControl("siteId",this.fb.control(this.site.id))
     let visitModel = Object.assign({}, this.visitAddForm.value);
     console.log(visitModel);
     this.visitService.add(visitModel).subscribe(
