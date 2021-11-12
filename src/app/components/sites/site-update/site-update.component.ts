@@ -5,6 +5,7 @@ import { ToastrService } from "ngx-toastr";
 import { City } from "src/app/models/city";
 import { Site } from "src/app/models/site";
 import { Study } from "src/app/models/study";
+import { AuthService } from "src/app/services/auth.service";
 import { CityService } from "src/app/services/city.service";
 import { SiteService } from "src/app/services/site.service";
 import { StudyService } from "src/app/services/study.service";
@@ -34,6 +35,7 @@ export class SiteUpdateComponent implements OnInit {
   clicked = false;
 
   constructor(
+    private authService: AuthService,
     private siteService: SiteService,
     private studyService: StudyService,
     private cityService: CityService,
@@ -53,7 +55,17 @@ export class SiteUpdateComponent implements OnInit {
     });
     this.getStudies();
     this.getCities();
+    this.isDisabled(this.authService.currentRoles)
   }
+
+  isDisabled(role: string) {
+    if(role == "sitecoordinator" ) {
+     this.siteUpdateForm.controls['studyId'].disable();
+     this.siteUpdateForm.controls['cityId'].disable();
+     this.siteUpdateForm.controls['siteNumber'].disable();
+     this.siteUpdateForm.controls['siteName'].disable();
+    }
+   }
 
   createSiteUpdateForm() {
     this.siteUpdateForm = this.formBuilder.group({

@@ -33,7 +33,7 @@ const routes: Routes = [
     component: SiteUpdateComponent,
     canActivate: [RoleGuard],
     data: {
-      expectedRole: ["site.update", "superuser"],
+      expectedRole: ["site.update", "superuser","sitecoordinator"],
     },
   },
 ];
