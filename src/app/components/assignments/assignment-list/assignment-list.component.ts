@@ -49,14 +49,14 @@ export class AssignmentListComponent implements OnInit {
           message: "MedexMessage",
           className: "table-button button btn btn-success",
           exportOptions: {
-            columns: [0, 1, 2, 3],
+            columns: [0, 1, 2],
           },
         },
         {
           extend: "print",
           className: "table-button button btn btn-success",
           exportOptions: {
-            columns: [0, 1, 2, 3],
+            columns: [0, 1, 2],
           },
         },
         /* {
