@@ -46,6 +46,7 @@ export class VisitAddComponent implements OnInit {
 
   clicked = false;
 
+  isSiteCoordinator:boolean=false
   constructor(
     private formBuilder: FormBuilder,
     private authService: AuthService,
@@ -63,6 +64,12 @@ export class VisitAddComponent implements OnInit {
   ngOnInit(): void {
     this.getSponsorsByUserId(this.authService.currentUserId)
     this.createVisitAddForm();
+
+    if (this.authService.currentRoles == "superuser") {
+      this.isSiteCoordinator = false
+    } else {
+      this.isSiteCoordinator = true
+    }
   }
 
   selectedSponsor() {
@@ -127,7 +134,6 @@ export class VisitAddComponent implements OnInit {
       .getPatientsBySiteNumber(siteNumber)
       .subscribe((response) => {
         this.patients = response.data
-        console.log(siteNumber)
       });
   }
 
@@ -144,7 +150,6 @@ export class VisitAddComponent implements OnInit {
     this.visitAddForm.addControl("studyId",this.fb.control(this.study.id))
     this.visitAddForm.addControl("siteId",this.fb.control(this.site.id))
     let visitModel = Object.assign({}, this.visitAddForm.value);
-    console.log(visitModel);
     this.visitService.add(visitModel).subscribe(
       (response) => {
         this.clicked = true;

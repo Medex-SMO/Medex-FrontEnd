@@ -1,3 +1,4 @@
+import { AuthService } from 'src/app/services/auth.service';
 import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
@@ -27,8 +28,10 @@ export class PatientAddComponent implements OnInit {
 
   clicked = false;
 
+  isSiteCoordinator:boolean=false
   constructor(
     private formBuilder: FormBuilder,
+    private authService: AuthService,
     private siteService: SiteService,
     private studyService: StudyService,
     private sponsorService: SponsorService,
@@ -38,6 +41,12 @@ export class PatientAddComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    if (this.authService.currentRoles == "superuser") {
+      this.isSiteCoordinator = false
+    } else {
+      this.isSiteCoordinator = true
+    }
+
     this.getSponsors();
     this.createPatientAddForm();
   }

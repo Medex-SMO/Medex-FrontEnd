@@ -22,6 +22,8 @@ export class SiteListComponent implements OnInit {
   dtTrigger: Subject<any> = new Subject<any>();
 
   sites: SiteModel[];
+
+  isSiteCoordinator:boolean=false
   constructor(
     private siteService: SiteService,
     private authService: AuthService,
@@ -35,8 +37,10 @@ export class SiteListComponent implements OnInit {
   ngOnInit(): void {
     if (this.authService.currentRoles == "superuser") {
       this.getSitesDetail();
+      this.isSiteCoordinator = false
     } else {
       this.getSitesDetailByUserId(this.authService.currentUserId)
+      this.isSiteCoordinator = true
     }
     this.dtOptions = {
       dom: "Bfrtip",
@@ -86,6 +90,7 @@ export class SiteListComponent implements OnInit {
         }, */,
       ],
     };
+
   }
 
   getSitesDetail() {
