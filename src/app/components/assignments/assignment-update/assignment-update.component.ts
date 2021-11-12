@@ -23,7 +23,6 @@ export class AssignmentUpdateComponent implements OnInit {
   id: number;
   siteId: number;
   userId: number;
-  craName: string;
   status: boolean;
 
   clicked = false;
@@ -55,7 +54,6 @@ export class AssignmentUpdateComponent implements OnInit {
       id: [this.id, Validators.required],
       siteId: [this.siteId ? this.siteId : "", Validators.required],
       userId: [this.userId ? this.userId : "", Validators.required],
-      craName: [this.craName ? this.craName : "", Validators.required],
       status: [this.status],
     });
   }
@@ -80,7 +78,6 @@ export class AssignmentUpdateComponent implements OnInit {
         this.id = this.assignment.id;
         this.siteId = this.assignment.siteId;
         this.userId = this.assignment.userId;
-        this.craName = this.assignment.craName;
         this.status = this.assignment.status;
         this.createAssignmentUpdateForm();
       });

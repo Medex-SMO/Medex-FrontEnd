@@ -4,6 +4,5 @@ export interface Assignment {
   studyId: number;
   siteId: number;
   userId: number;
-  craName: string;
   status: boolean;
 }

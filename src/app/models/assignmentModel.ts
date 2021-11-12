@@ -5,6 +5,5 @@ export interface AssignmentModel {
   siteName: string;
   siteNumber: string;
   email: number;
-  craName: string;
   status: boolean;
 }

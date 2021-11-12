@@ -17,7 +17,7 @@ const routes: Routes = [
     component: SiteListComponent,
     canActivate: [RoleGuard],
     data: {
-      expectedRole: ["superuser"],
+      expectedRole: ["superuser","sitecoordinator"],
     },
   },
   {

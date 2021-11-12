@@ -64,7 +64,6 @@ export class AssignmentAddComponent implements OnInit {
       studyId: ["", Validators.required],
       siteId: ["", Validators.required],
       userId: ["", Validators.required],
-      craName: ["", Validators.required],
       status: ["", Validators.required],
     });
   }

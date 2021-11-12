@@ -31,7 +31,7 @@ export const MENU: MenuItem[] = [
       {
         label: "Sites",
         link: "/sites",
-        roles: ["superuser"],
+        roles: ["superuser","sitecoordinator"],
       },
       {
         label: "Patients",

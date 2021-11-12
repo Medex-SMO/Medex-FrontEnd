@@ -1,3 +1,4 @@
+import { AuthService } from "src/app/services/auth.service";
 import { Component, OnInit, ViewChild } from "@angular/core";
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { DataTableDirective } from "angular-datatables";
@@ -23,6 +24,7 @@ export class SiteListComponent implements OnInit {
   sites: SiteModel[];
   constructor(
     private siteService: SiteService,
+    private authService: AuthService,
     private toastrService: ToastrService,
     private modalService: NgbModal
   ) {}
@@ -31,7 +33,11 @@ export class SiteListComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getSitesDetail();
+    if (this.authService.currentRoles == "superuser") {
+      this.getSitesDetail();
+    } else {
+      this.getSitesDetailByUserId(this.authService.currentUserId)
+    }
     this.dtOptions = {
       dom: "Bfrtip",
       initComplete: function (settings, json) {
@@ -58,7 +64,7 @@ export class SiteListComponent implements OnInit {
           exportOptions: {
             columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
           },
-        }/* ,
+        } /* ,
         {
           extend: "copy",
           className: "table-button button btn btn-success",
@@ -77,13 +83,20 @@ export class SiteListComponent implements OnInit {
           action: function (e, dt, node, config) {
             alert("Button activated");
           },
-        }, */
+        }, */,
       ],
     };
   }
 
   getSitesDetail() {
     this.siteService.getSitesDetails().subscribe((response) => {
+      this.sites = response.data;
+      this.dtTrigger.next();
+    });
+  }
+
+  getSitesDetailByUserId(userId: number) {
+    this.siteService.getSitesDetailByUserId(userId).subscribe((response) => {
       this.sites = response.data;
       this.dtTrigger.next();
     });
